@@ -8,8 +8,8 @@
     "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
     "server": "node app.js",
-    "develop": "npm run server\" \"npm run start --prefix client\"",
-    "start": "npm run server\" \"npm run start --prefix client\""
+    "develop": "npm run server \"npm run start --prefix client\"",
+    "start": "npm run server \"npm run start --prefix client\""
   },
   "repository": {
     "type": "git",
