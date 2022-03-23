@@ -1,51 +1,33 @@
-import ReactDOM from 'react-dom';
-import '../../App.css';
-import { useDrag, useDrop } from 'react-dnd';
-// Import React dependencies.
-import React, { useState } from 'react'
-
-import TextInput from './text/TextInput';
+import '../../styles/css/App.css';
+import React from 'react'
+import RichEditor from './text/RichEditor';
+import Image from './image/Image';
+import AnchorButton from './button/AnchorButton'
 
 const Field = (props) => {
   switch (props.type) {
     case 'Text':
       return (
         <div className='component-container'>
-          <div className='text-input'>
-            <TextInput/>
+          <div className='text-input' tabIndex={0}>
+            <RichEditor/>
           </div>
         </div>
-        // <div className='component-container'>
-        //   <div 
-        //     className='text-input' 
-        //     contentEditable='true'
-        //     onPaste={(e) => {
-        //       e.preventDefault();
-        //       const text = e.clipboardData.getData('text');
-        //       document.execCommand('insertText', false, text);
-        //     }}>
-        //       Text
-        //   </div>  
-        // </div>
       )
     case 'Image':
       return (
         <div className='component-container'>
-          <div className='image-container'>
-            <img className='image-container-placeholder' src='../assets/default-banner.png'></img>
-          </div>  
+          <Image/>
         </div>
       )
     case 'Button':
     return (
       <div className='component-container'>
-        <div className='button-template'>
-          <div className='button-body'>
-            <span className='button-label'>Button</span>
-          </div>
-        </div>  
+        <AnchorButton/>
       </div>
     )
+    default:
+      break;
   }
 };
 

@@ -1,33 +1,19 @@
-import React from 'react'
-// Define a React component to render leaves with bold text.
-const Leaf = props => {
-  if (props.leaf.bold) {
-    return (
-      <span {...props.attributes} >
-        <strong>{props.children}</strong>
-      </span>
-    )
-  }
-  if (props.leaf.italic) {
-    return (
-      <span {...props.attributes} >
-        <em>{props.children}</em>
-      </span>
-    )
-  }
-  if (props.leaf.underline) {
-    return (
-      <span {...props.attributes} >
-        <u>{props.children}</u>
-      </span>
-    )
+import React from "react";
+
+const Leaf = ({ attributes, children, leaf }) => {
+  if (leaf.bold) {
+      children = <strong>{children}</strong>
   }
 
-  return (
-    <span {...props.attributes} >
-      {props.children}
-    </span>
-  )
+  if (leaf.italic) {
+    children = <em>{children}</em>
+  }
+
+  if (leaf.underline) {
+    children = <u>{children}</u>
+  }
+  
+  return <span {...attributes}>{children}</span>
 }
 
 export default Leaf;

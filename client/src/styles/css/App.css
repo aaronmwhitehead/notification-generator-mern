@@ -1,18 +1,26 @@
 * {
   margin: 0;
   padding: 0;
-  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+strong {
+  font-weight: bold;
 }
 
 textarea {
   resize: none;
 }
 
+ol, ul {
+  padding: 0 20px;
+  margin-bottom: 0 !important;
+}
+
 body, #root {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: red;
   background: url("/assets/cool-background.png");
 }
 
@@ -147,7 +155,6 @@ body, #root {
   justify-content: center;
   align-items: center;
   background: #fff;
-  cursor: grab;
   user-select: none;
 }
 .element:hover {
@@ -187,34 +194,72 @@ body, #root {
 }
 
 .component-container {
-  min-width: 100%;
+  min-width: 620px;
+  max-width: 620px;
   min-height: 32px;
 }
 
 .text-input {
+  outline: none;
   padding: 5px;
   border: 2px solid rgba(0, 0, 0, 0);
 }
 .text-input:hover {
   border: 2px solid #ddd;
 }
-.text-input:focus {
+.text-input:focus-within {
   outline: none;
   border: 2px solid #888;
 }
+.text-input:focus-within > .slate-toolbar {
+  display: flex;
+}
 
 .image-container {
-  border: 2px solid #f3f3f3;
+  border: 2px solid rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
   background-color: #fcfcfc;
+}
+.image-container:focus-within {
+  border: 2px solid #888;
+}
+.image-container:focus-within .image-editor {
+  display: flex;
 }
 .image-container .image-container-placeholder {
   height: 40px;
 }
+.image-container .image {
+  width: 100%;
+  height: 100%;
+}
 .image-container:hover {
+  border: 2px solid #ddd;
+}
+
+.button-container {
+  border: 2px solid rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+.button-container:focus-within {
+  border: 2px solid #888;
+}
+.button-container:focus-within:hover {
+  border: 2px solid #888;
+}
+.button-container:focus-within .button-editor {
+  display: flex;
+}
+.button-container .button {
+  width: 100%;
+  height: 100%;
+}
+.button-container:hover {
   border: 2px solid #ddd;
 }
 
@@ -223,9 +268,6 @@ body, #root {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.button-template:hover {
-  border: 2px solid #ddd;
 }
 .button-template .button-body {
   background: #071f4f;
@@ -237,6 +279,88 @@ body, #root {
 }
 .button-template .button-body .button-label {
   color: #fff;
+}
+
+.element-link {
+  display: inline;
+  position: relative;
+}
+
+.element-link .popup {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 6px 10px;
+  gap: 10px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+}
+
+.element-link .popup a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-right: 10px;
+  border-right: 1px solid lightgrey;
+}
+
+.element-link .popup button {
+  border: none;
+  background: transparent;
+}
+
+.element-link .popup button:hover {
+  color: rebeccapurple;
+  cursor: pointer;
+}
+
+.slate-toolbar {
+  display: none;
+  padding: 10px;
+}
+.slate-toolbar:focus {
+  outline: none;
+}
+
+.slate-paragraph {
+  margin-bottom: 1rem;
+}
+
+.dTCEPV .hOLBZg .component-container .text-input .slate-toolbar {
+  display: none;
+}
+
+.eXakYv .hOLBZg .component-container .image-container .image-editor {
+  display: none;
+}
+
+.eXakYv .hOLBZg .component-container .button-container .button-editor {
+  display: none;
+}
+
+.editor-section {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding: 15px;
+}
+.editor-section .header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.editor-section .url-input {
+  width: 100%;
+  border-radius: 0 20px 20px 0;
+  padding: 5px;
+  outline: none;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+}
+.editor-section .url-input:focus {
+  box-shadow: 0 0 2px 1px #70b2e6;
+  border-color: #70b2e6;
 }
 
 /*# sourceMappingURL=App.css.map */

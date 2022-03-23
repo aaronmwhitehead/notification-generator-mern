@@ -1,135 +1,18 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import "../App.css";
-import Element from "./element/Element";
-import Field from './fields/Field';
+import "../../styles/css/App.css";
+import Element from "../element/Element";
+import Field from '../fields/Field';
 import uuid from 'uuid/v4';
-import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-};
-/**
- * Moves an item from one list to another list.
- */
-const copy = (source, destination, droppableSource, droppableDestination) => {
-    const sourceClone = Array.from(source);
-    const destClone = Array.from(destination);
-    const item = sourceClone[droppableSource.index];
-
-    destClone.splice(droppableDestination.index, 0, { ...item, id: uuid() });
-    return destClone;
-};
-
-const move = (source, destination, droppableSource, droppableDestination) => {
-    const sourceClone = Array.from(source);
-    const destClone = Array.from(destination);
-    const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-    destClone.splice(droppableDestination.index, 0, removed);
-
-    const result = {};
-    result[droppableSource.droppableId] = sourceClone;
-    result[droppableDestination.droppableId] = destClone;
-
-    return result;
-};
-
-const grid = 8;
-
-const Content = styled.div`
-    margin-right: 200px;
-`;
-
-const Item = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    line-height: 1.5;
-    border-radius: 3px;
-    height: 5em;
-    width: 10em;
-    margin: 5px 0;
-`;
-
-const ListItem = styled.div`
-    display: flex;
-    align-items: center;
-    user-select: none;
-    line-height: 1.5;
-    border-radius: 3px;
-    width: 70%;
-`;
-
-const Clone = styled(Item)`
-    ~ div {
-        transform: none !important;
-    }
-`;
-
-const Handle = styled.div`
-    display: flex;
-    align-items: center;
-    align-content: center;
-    user-select: none;
-    padding: 6px;
-    border-radius: 3px 0 0 3px;
-`;
-
-const List = styled.div`
-    border: 1px
-        ${props => (props.isDraggingOver ? 'dashed #000' : 'solid #ddd')};
-    background: #fff;
-    padding: 0.5rem 0.5rem 0;
-    border-radius: 3px;
-    flex: 0 0 150px;
-    font-family: sans-serif;
-    min-height: 60px;
-`;
-
-const Kiosk = styled(List)`
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 200px;
-`;
-
-const Container = styled.div`
-    margin: 0.5rem 0.5rem 1.5rem;
-    border: 1px
-        ${props => (props.isDraggingOver ? 'dashed #000' : 'solid #ddd')};
-    background: #fff;
-    padding: 1em;
-    border-radius: 3px;
-    flex: 0 0 150px;
-    font-family: sans-serif;
-    min-height: 300px;
-    max-height: 98vh;
-    overflow: scroll;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
-const Notice = styled.div`
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    padding: 0.5rem;
-    margin: 0 0.5rem 0.5rem;
-    border: 1px solid transparent;
-    line-height: 1.5;
-    color: #aaa;
-`;
+import { reorder, copy, move } from './utils';
+import Content from './Content';
+import Item from './Item';
+import ListItem from './ListItem';
+import Clone from './Clone';
+import Handle from './Handle';
+import Kiosk from './Kiosk';
+import Container from './Container';
+import Notice from './Notice';
 
 const ITEMS = [
     {
@@ -153,6 +36,11 @@ class CreateEmailTest extends Component {
     state = {
         [uuid()]: []
     };
+    onDragStart = (() => {
+      document.querySelectorAll('.slate-toolbar').forEach((el) => {
+        el.style.display = 'none';
+      });
+    });
     onDragEnd = result => {
         const { source, destination } = result;
 
@@ -192,13 +80,17 @@ class CreateEmailTest extends Component {
                 );
                 break;
         }
+        
+        document.querySelectorAll('.slate-toolbar').forEach((el) => {
+          el.style.display = null;
+        });
     };
 
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
       return (
-          <DragDropContext onDragEnd={this.onDragEnd}>
+          <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
               <Droppable droppableId="ITEMS" isDropDisabled={true}>
                   {(provided, snapshot) => (
                       <Kiosk
@@ -269,7 +161,6 @@ class CreateEmailTest extends Component {
                                                                     />
                                                                 </svg>
                                                             </Handle>
-                                                            {/* This needs to be in it's own component */}
                                                             <Field type={item.content}/>
                                                         </ListItem>
                                                     )}

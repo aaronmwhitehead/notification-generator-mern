@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../App.css';
+import '../styles/css/App.css';
 
 class UpdateEmailInfo extends Component {
   constructor(props) {

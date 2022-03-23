@@ -1,18 +1,26 @@
 * {
   margin: 0; 
   padding: 0;
-  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+strong {
+  font-weight: bold;
 }
 
 textarea {
   resize: none;
 }
 
+ol, ul {
+  padding: 0 20px;
+  margin-bottom: 0 !important;
+}
+
 body, #root {
   width: 100vw;
   height:100vh;
   overflow: hidden;
-  background: rgb(255, 0, 0);
   background: url('/assets/cool-background.png');
 }
 
@@ -149,7 +157,7 @@ body, #root {
   justify-content: center;
   align-items: center;
   background: #fff;
-  cursor: grab;
+  // cursor: grab;
   user-select: none;
 
   &:hover {
@@ -190,34 +198,81 @@ body, #root {
 }
 
 .component-container {
-  min-width: 100%;
+  min-width: 620px;
+  max-width: 620px;
   min-height: 32px;
 }
 
 .text-input {
-  padding: 5px; 
+  outline: none;
+  padding: 5px;
   border: 2px solid rgba(0,0,0,0);
 
   &:hover {
     border: 2px solid #ddd;
   }
 
-  &:focus {
+  &:focus-within {
     outline: none;
     border: 2px solid #888;
+
+    & > .slate-toolbar {
+      display: flex;
+    }
   }
 }
 
 .image-container {
-  border: 2px solid rgb(243, 243, 243);
+  border: 2px solid rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
   background-color: rgb(252, 252, 252);
+
+  &:focus-within {
+    border: 2px solid #888;
+
+    .image-editor {
+      display: flex;
+    }
+  }
 
   .image-container-placeholder {
     height: 40px;
+  }
+
+  .image {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    border: 2px solid #ddd;
+  }
+}
+
+.button-container {
+  border: 2px solid rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+
+  &:focus-within {
+    border: 2px solid #888;
+
+    &:hover {
+      border: 2px solid #888;
+    }
+
+    .button-editor {
+      display: flex;
+    }
+  }
+
+  .button {
+    width: 100%;
+    height: 100%;
   }
 
   &:hover {
@@ -231,10 +286,6 @@ body, #root {
   justify-content: center;
   align-items: center;
 
-  &:hover {
-    border: 2px solid #ddd;
-  }
-
   .button-body {
     background: #071f4f;
     padding: 10px 20px;
@@ -246,6 +297,92 @@ body, #root {
 
     .button-label {
       color: #fff;
+    }
+  }
+}
+
+.element-link {
+  display: inline;
+  position: relative;
+}
+
+.element-link .popup {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 6px 10px;
+  gap: 10px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
+}
+
+.element-link .popup a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-right: 10px;
+  border-right: 1px solid lightgrey;
+}
+
+.element-link .popup button {
+  border: none;
+  background: transparent;
+}
+
+.element-link .popup button:hover {
+  color: rebeccapurple;
+  cursor: pointer;
+}
+
+.slate-toolbar {
+  display: none;
+  padding: 10px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.slate-paragraph {
+  margin-bottom: 1rem;
+}
+
+.dTCEPV .hOLBZg .component-container .text-input .slate-toolbar {
+  display: none;
+}
+
+.eXakYv .hOLBZg .component-container .image-container .image-editor {
+  display: none;
+}
+
+.eXakYv .hOLBZg .component-container .button-container .button-editor {
+  display: none;
+}
+
+.editor-section {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding: 15px;
+  
+  .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .url-input {
+    width: 100%;
+    border-radius: 0 20px 20px 0;
+    padding: 5px;
+    outline: none;
+    border: 1px solid #ccc;
+    font-size: .9em;
+
+    &:focus {
+      box-shadow: 0 0 2px 1px rgb(112, 178, 230);
+      border-color: rgb(112, 178, 230);
     }
   }
 }

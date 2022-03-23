@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import "../../App.css";
+import React from 'react';
+import "../../styles/css/App.css";
 
 const Element = (props) => {
   
