@@ -1,5 +1,5 @@
 {
-  "name": "notification-generator-mern",
+  "name": "mern_a_to_z_client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,8 +11,8 @@
     "font-awesome": "^4.7.0",
     "immutability-helper": "^3.1.1",
     "is-url": "^1.2.4",
-    "material-design-icons": "^3.0.1",
     "node-sass": "^4.14.1",
+    "material-design-icons": "^3.0.1",
     "paste-as-plain-text": "^1.0.2",
     "react": "^16.8.6",
     "react-beautiful-dnd": "^10.1.0",
