@@ -2,6 +2,9 @@
   "name": "mern_a_to_z_client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.15.2"
+  },
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.16.5",
     "@emotion/css": "^11.7.1",
@@ -11,7 +14,6 @@
     "font-awesome": "^4.7.0",
     "immutability-helper": "^3.1.1",
     "is-url": "^1.2.4",
-    "node-sass": "^4.14.1",
     "material-design-icons": "^3.0.1",
     "paste-as-plain-text": "^1.0.2",
     "react": "^16.8.6",
@@ -53,6 +55,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-dom": "^17.0.13"
+    "@types/react-dom": "^17.0.13",
+    "node-sass": "^4.14.1"
   }
 }
