@@ -7,6 +7,12 @@ const ListItem = styled.div`
     line-height: 1.5;
     border-radius: 3px;
     width: 70%;
+
+    &:focus-within {
+      .drag-handle, .delete-block {
+        visibility: visible;
+      }
+    }
 `;
 
 export default ListItem;

@@ -21,7 +21,7 @@ body, #root {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: url("/assets/cool-background.png");
+  background: #f2f2f5;
 }
 
 .App {
@@ -158,7 +158,7 @@ body, #root {
   user-select: none;
 }
 .element:hover {
-  border: 2px solid #6ebe6e;
+  border: 2px solid #57CC99;
 }
 
 .container-main {
@@ -197,6 +197,7 @@ body, #root {
   min-width: 620px;
   max-width: 620px;
   min-height: 32px;
+  margin-top: 1px;
 }
 
 .text-input {
@@ -209,10 +210,13 @@ body, #root {
 }
 .text-input:focus-within {
   outline: none;
-  border: 2px solid #888;
+  box-shadow: 0 0 1px 1px #80ED99;
+  border-color: #67c97e;
 }
 .text-input:focus-within > .slate-toolbar {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .image-container {
@@ -220,23 +224,21 @@ body, #root {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fcfcfc;
+}
+.image-container:hover {
+  border: 2px solid #ddd;
 }
 .image-container:focus-within {
-  border: 2px solid #888;
+  outline: none;
+  box-shadow: 0 0 1px 1px #80ed99;
+  border-color: #67c97e;
 }
 .image-container:focus-within .image-editor {
   display: flex;
 }
-.image-container .image-container-placeholder {
-  height: 40px;
-}
 .image-container .image {
   width: 100%;
   height: 100%;
-}
-.image-container:hover {
-  border: 2px solid #ddd;
 }
 
 .button-container {
@@ -246,11 +248,13 @@ body, #root {
   align-items: center;
   background-color: #fff;
 }
-.button-container:focus-within {
-  border: 2px solid #888;
+.button-container:hover {
+  border: 2px solid #ddd;
 }
-.button-container:focus-within:hover {
-  border: 2px solid #888;
+.button-container:focus-within {
+  outline: none;
+  box-shadow: 0 0 1px 1px #80ed99;
+  border-color: #67c97e;
 }
 .button-container:focus-within .button-editor {
   display: flex;
@@ -258,9 +262,6 @@ body, #root {
 .button-container .button {
   width: 100%;
   height: 100%;
-}
-.button-container:hover {
-  border: 2px solid #ddd;
 }
 
 .button-template {
@@ -350,17 +351,161 @@ body, #root {
   align-items: center;
   width: 100%;
 }
-.editor-section .url-input {
+.editor-section .editor-section-align {
+  justify-content: space-between;
+  align-items: center;
+}
+.editor-section .input {
   width: 100%;
   border-radius: 0 20px 20px 0;
   padding: 5px;
   outline: none;
   border: 1px solid #ccc;
   font-size: 0.9em;
+  margin-bottom: 5px;
 }
-.editor-section .url-input:focus {
-  box-shadow: 0 0 2px 1px #70b2e6;
-  border-color: #70b2e6;
+.editor-section .input:focus {
+  box-shadow: 0 0 1px 1px #80ED99;
+  border-color: #67c97e;
+}
+
+.label {
+  color: #807e7e;
+  font-size: 12px;
+}
+
+.align-buttons {
+  display: flex;
+}
+.align-buttons .align-button {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+.align-buttons .align-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 8px 15px;
+  cursor: pointer;
+  border: 1px solid #999;
+  margin: 0;
+}
+.align-buttons .align-icon:hover {
+  background-color: #dfd;
+}
+.align-buttons .align-left {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-right: none;
+}
+.align-buttons .align-right {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-left: none;
+}
+.align-buttons input[type=radio]:checked + .align-icon {
+  background-color: #bfb;
+  border-color: #4c4;
+}
+
+.page-header {
+  height: 75px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background-color: #22577A;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-header .header-title {
+  color: #fff;
+  font-size: 1.3em;
+  padding: 10px;
+  font-family: "Nunito Sans", "Avenir Next", "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-left: 10px;
+}
+
+.action-icon {
+  visibility: hidden;
+  position: relative;
+}
+.action-icon.drag-handle {
+  left: 667px;
+}
+.action-icon.delete-block {
+  left: -5px;
+  bottom: 40px;
+  top: 0;
+}
+
+.button-block {
+  display: flex;
+  justify-content: space-between;
+}
+.button-block .button {
+  background: #fff;
+  color: #22577A;
+  font-family: "Nunito Sans", "Avenir Next", "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  padding: 10px 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  margin-right: 20px;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-block .button:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.button-block .save-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.button-block .save-dropdown .save {
+  font-family: inherit;
+  padding-left: 5px;
+}
+.button-block .save-dropdown .dropdown-arrow {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #22577A;
+  margin: 0 5px 0 10px;
+}
+.button-block .dropdown-content {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  position: absolute;
+  background: #fff;
+  border-radius: 5px;
+  margin-top: 2px;
+  user-select: none;
+  color: #22577A;
+}
+.button-block .dropdown-content .dropdown-option {
+  padding: 8px;
+  font-family: "Nunito Sans", "Avenir Next", "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.button-block .dropdown-content .dropdown-option:hover {
+  background: #eee;
+  cursor: pointer;
+}
+.button-block .dropdown-content .dropdown-option.option-new {
+  margin: 4px 4px 0;
+}
+.button-block .dropdown-content .dropdown-option.option-update {
+  margin: 0 4px 4px;
 }
 
 /*# sourceMappingURL=App.css.map */

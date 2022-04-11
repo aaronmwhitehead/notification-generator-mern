@@ -20,7 +20,7 @@ const HOTKEYS = {
     'mod+u': 'underline',
 };
 
-export default function RichEditor(props) {
+const RichEditor = (props) => {
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
     const editorRef = useRef()
@@ -28,15 +28,15 @@ export default function RichEditor(props) {
       editorRef.current = withReact(withHistory(withLinks(withKeyCommands(createEditor()))))
     } 
     const editor = editorRef.current
-    const [value, setValue] = useState([
-      {
-        type: 'paragraph',
-        children: [{ text: 'A line of text in a paragraph.' }],
-      },
-    ])
+    const [value, setValue] = useState(props.item.fieldProps.editor)
+
+    const handleChange = (data) => {
+      setValue(data);
+      props.onTextChange(data);
+    }
 
     return (
-        <Slate editor={editor} value={value} onChange={value => setValue(value)}>
+        <Slate editor={editor} value={value} onChange={(data) => handleChange(data)}>
             <Toolbar className="slate-toolbar">
                 <MarkButton className='icon icon-bold' format="bold" icon="format_bold" />
                 <MarkButton format="italic" icon="format_italic" />
@@ -56,17 +56,6 @@ export default function RichEditor(props) {
                 renderElement={renderElement}
                 renderLeaf={renderLeaf}
                 spellCheck
-                autoFocus
-                onBlur={(event => {
-                  event.preventDefault();
-                  const target = event.currentTarget;
-                  if(event.relatedTarget)
-                    console.log(event.relatedTarget.classList.contains('slate-toolbar'));
-
-                  if(event.relatedTarget && event.relatedTarget.classList.contains('slate-toolbar')) {
-                    setTimeout(() => { target.focus(); });
-                  }
-                })}
                 onKeyDown={event => {
                   for (const hotkey in HOTKEYS) {
                       if (isHotkey(hotkey, event)) {
@@ -80,3 +69,5 @@ export default function RichEditor(props) {
         </Slate>
     )
 };
+
+export default RichEditor;

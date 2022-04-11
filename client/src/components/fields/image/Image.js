@@ -1,32 +1,58 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import ImageEditor from './ImageEditor';
 
 class Image extends Component{
   constructor(props) {
     super(props);
     this.handleImageChange = this.handleImageChange.bind(this);
+    this.handleAlignChange = this.handleAlignChange.bind(this);
+    this.handleSizeChange = this.handleSizeChange.bind(this);
     this.state = {
-      url: '../assets/default-banner.png',
-      class: 'image-container-placeholder'
+      url: this.props.item.fieldProps.url,
+      align: this.props.item.fieldProps.align,
+      height: this.props.item.fieldProps.height,
+      width: this.props.item.fieldProps.width
     };
   }
 
-  showEditor = (() => {
-    console.log('focused');
-  });
-
   handleImageChange(url) {
+    if(url === '') {
+      url = '../assets/default-banner.png'
+    }
+
     this.setState({
       url: url,
-      class: 'image'
     });
+
+    this.props.onURLChange(url);
+  }
+
+  handleAlignChange(value) {
+    this.setState({
+      align: value,
+    });
+
+    this.props.onAlignChange(value);
+  }
+
+  handleSizeChange(target) {
+    if(target.name === "width") {
+      this.setState({
+        width: target.value,
+      });
+    } else if(target.name === "height") {
+      this.setState({
+        height: target.value,
+      });
+    }
+    this.props.onSizeChange(target);
   }
 
   render() {
     return(
-      <div onFocus={this.showEditor} className='image-container' tabIndex={0}>
-        <ImageEditor onInputChange={this.handleImageChange}/>
-        <img alt='placeholder' className={this.state.class} src={this.state.url}></img>
+      <div className='image-container' tabIndex={0} style={{ justifyContent: this.state.align }}>
+        <ImageEditor defaultAlign={this.state.align} onInputChange={this.handleImageChange} onAlignChange={this.handleAlignChange} onSizeChange={this.handleSizeChange}/>
+        <img height={this.state.height} width={this.state.width} src={this.state.url}></img>
       </div>  
     )
   }

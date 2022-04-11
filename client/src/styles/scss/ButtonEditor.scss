@@ -1,16 +1,17 @@
 .button-editor {
   position: fixed;
   right: 0;
-  top: 0;
-  background: #fff;
+  top: 75px;
+  background: #f2f2f5;
   height: 100vh;
   width: 400px;
   display: none;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 5px;
   font-size: .9em;
+  z-index: 7;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
 }
 
 .link-preview {

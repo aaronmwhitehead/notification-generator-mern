@@ -19,7 +19,7 @@ export const Button = React.forwardRef(
         className,
         css`
           cursor: pointer;
-          border: ${active ? '1px solid rgba(0,0,0,1)' : '1px solid rgba(0,0,0,0)'};
+          border: ${active ? '1px solid #80ED99' : '1px solid rgba(0,0,0,0)'};
           width: 30px;
           height: 26px;
           border-radius: 5px;
@@ -28,7 +28,7 @@ export const Button = React.forwardRef(
           align-items: center;
 
           &:hover {
-            border: 1px solid #888;
+            border: 1px solid #80ED99;
           }
         `
       )}

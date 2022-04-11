@@ -1,11 +1,7 @@
 import React from 'react';
 import {useSlate} from 'slate-react';
-import {
-    MdFormatBold,
-    MdFormatItalic,
-    MdFormatUnderlined,
-    MdOutlineLink
-} from 'react-icons/md';
+import { MdOutlineLink } from 'react-icons/md';
+import { ImBold, ImItalic, ImUnderline } from 'react-icons/im'
 import { Button } from './Button';
 import { isMarkActive, toggleMark } from './utils';
 
@@ -14,16 +10,16 @@ const MarkButton = ({ format, icon }) => {
   let iconCompo = null;
   switch (icon) {
       case 'format_bold':
-          iconCompo = (<MdFormatBold size={24} />);
+          iconCompo = (<ImBold title="Bold" size={20} />);
           break;
       case 'format_italic':
-          iconCompo = (<MdFormatItalic size={24} />);
+          iconCompo = (<ImItalic title="Italic" size={20} />);
           break;
       case 'format_underlined':
-          iconCompo = (<MdFormatUnderlined size={24} />);
+          iconCompo = (<ImUnderline title="Underline" size={20} />);
           break;
       case 'format_link':
-        iconCompo = (<MdOutlineLink size={24} />);
+        iconCompo = (<MdOutlineLink title="Add Link" size={24} />);
         break;
       default:
         break;

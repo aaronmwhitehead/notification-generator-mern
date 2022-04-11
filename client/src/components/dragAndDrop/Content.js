@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const Content = styled.div`
-    margin-right: 400px;
+  margin-left: 110px;
+  width: 70%;
 `;
 
 export default Content;

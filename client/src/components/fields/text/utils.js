@@ -50,7 +50,6 @@ export const insertLink = (editor, url) => {
       console.log('Range is collapsed')
     } 
     else {
-      console.log('Else')
       // Wrap the currently selected range of text into a Link
       Transforms.wrapNodes(editor, link, { split: true });
       // Remove the highlight and move the cursor to the end of the highlight

@@ -5,10 +5,9 @@ const Item = styled.div`
     justify-content: center;
     align-items: center;
     user-select: none;
-    line-height: 1.5;
     border-radius: 3px;
-    height: 5em;
-    width: 10em;
+    height: 70px;
+    width: 95px;
     margin: 5px 0;
 `;
 

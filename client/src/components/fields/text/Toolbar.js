@@ -13,15 +13,15 @@ export const Toolbar = React.forwardRef(
       className={cx(
         className,
         css`
-          position: fixed;
-          top: 8px;
-          margin-left: auto;
-          margin-right: auto;
-          background: rgb(230, 230, 230);
-          justify-content: center;
-          align-items: center;
-          z-index: 999;
-          width: 60%;
+        position: fixed;
+        width: 69.7%;
+        top: 75px;
+        background: #38A3A5;
+        color: #fff;
+        left: 116px;
+        z-index: 8;
+        overflow: hidden;
+        justifty-content: center;
         `
       )}
     />

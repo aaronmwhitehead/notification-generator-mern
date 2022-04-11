@@ -13,28 +13,28 @@ const BlockButton = ({ format, icon }) => {
   let iconCompo = null;
   switch (icon) {
       case 'heading-one':
-          iconCompo = (<MdLooksOne size={24} />);
+          iconCompo = (<MdLooksOne title="Heading 1" size={24} />);
           break;
       case 'heading-two':
-          iconCompo = (<MdLooksTwo size={24} />);
+          iconCompo = (<MdLooksTwo title="Heading 2" size={24} />);
           break;
       case 'heading-three':
-          iconCompo = (<MdLooks3 size={24} />);
+          iconCompo = (<MdLooks3 title="Heading 3" size={24} />);
           break;
       case 'heading-four':
-          iconCompo = (<MdLooks4 size={24} />);
+          iconCompo = (<MdLooks4 title="Heading 4" size={24} />);
           break;
       case 'heading-five':
-          iconCompo = (<MdLooks5 size={24} />);
+          iconCompo = (<MdLooks5 title="Heading 5" size={24} />);
           break;
       case 'heading-six':
-          iconCompo = (<MdLooks6 size={24} />);
+          iconCompo = (<MdLooks6 title="Heading 6" size={24} />);
           break;
       case 'format_list_numbered':
-          iconCompo = (<MdFormatListNumbered size={24} />);
+          iconCompo = (<MdFormatListNumbered title="Numbered List" size={24} />);
           break;
       case 'format_list_bulleted':
-          iconCompo = (<MdFormatListBulleted size={24} />);
+          iconCompo = (<MdFormatListBulleted title="Bulleted List" size={24} />);
           break;
       default:
         break;

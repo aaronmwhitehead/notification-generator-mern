@@ -21,7 +21,7 @@ body, #root {
   width: 100vw;
   height:100vh;
   overflow: hidden;
-  background: url('/assets/cool-background.png');
+  background: #f2f2f5;
 }
 
 .App {
@@ -157,11 +157,10 @@ body, #root {
   justify-content: center;
   align-items: center;
   background: #fff;
-  // cursor: grab;
   user-select: none;
 
   &:hover {
-    border: 2px solid rgb(110, 190, 110);
+    border: 2px solid #57CC99;
   }
 }
 
@@ -201,6 +200,7 @@ body, #root {
   min-width: 620px;
   max-width: 620px;
   min-height: 32px;
+  margin-top: 1px;
 }
 
 .text-input {
@@ -214,10 +214,13 @@ body, #root {
 
   &:focus-within {
     outline: none;
-    border: 2px solid #888;
+    box-shadow: 0 0 1px 1px #80ED99;
+    border-color: #67c97e;
 
     & > .slate-toolbar {
       display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }
@@ -227,27 +230,24 @@ body, #root {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(252, 252, 252);
+
+  &:hover {
+    border: 2px solid #ddd;
+  }
 
   &:focus-within {
-    border: 2px solid #888;
+    outline: none;
+    box-shadow: 0 0 1px 1px #80ed99;
+    border-color: #67c97e;
 
     .image-editor {
       display: flex;
     }
   }
 
-  .image-container-placeholder {
-    height: 40px;
-  }
-
   .image {
     width: 100%;
     height: 100%;
-  }
-
-  &:hover {
-    border: 2px solid #ddd;
   }
 }
 
@@ -257,13 +257,15 @@ body, #root {
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  
+  &:hover {
+    border: 2px solid #ddd;
+  }
 
   &:focus-within {
-    border: 2px solid #888;
-
-    &:hover {
-      border: 2px solid #888;
-    }
+    outline: none;
+    box-shadow: 0 0 1px 1px #80ed99;
+    border-color: #67c97e;
 
     .button-editor {
       display: flex;
@@ -273,10 +275,6 @@ body, #root {
   .button {
     width: 100%;
     height: 100%;
-  }
-
-  &:hover {
-    border: 2px solid #ddd;
   }
 }
 
@@ -372,17 +370,181 @@ body, #root {
     width: 100%;
   }
 
-  .url-input {
+  .editor-section-align {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .input {
     width: 100%;
     border-radius: 0 20px 20px 0;
     padding: 5px;
     outline: none;
     border: 1px solid #ccc;
     font-size: .9em;
+    margin-bottom: 5px;
 
     &:focus {
-      box-shadow: 0 0 2px 1px rgb(112, 178, 230);
-      border-color: rgb(112, 178, 230);
+      box-shadow: 0 0 1px 1px #80ED99;
+      border-color: #67c97e;
+    }
+  }
+}
+
+.label {
+  color: #807e7e;
+  font-size: 12px;
+}
+
+.align-buttons {
+  display: flex;
+
+  .align-button {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+  }
+  
+  .align-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 8px 15px;
+    cursor: pointer;
+    border: 1px solid #999;
+    margin: 0;
+  
+    &:hover {
+      background-color: #dfd;
+    }
+  }
+
+  .align-left {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-right: none;
+  }
+
+  .align-right {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-left: none;
+  }
+  
+  input[type="radio"]:checked + .align-icon {
+    background-color:#bfb;
+    border-color: #4c4;
+  }
+}
+
+.page-header {
+  height: 75px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 15%);
+  background-color: #22577A;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header-title {
+    color: #fff;
+    font-size: 1.3em;
+    padding: 10px;
+    font-family: 'Nunito Sans','Avenir Next','Segoe UI','Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    margin-left: 10px;
+  }
+}
+
+.action-icon {
+  visibility: hidden;
+  position: relative;
+
+  &.drag-handle {
+    left: 667px;
+  }
+
+  &.delete-block {
+    left: -5px;
+    bottom: 40px;
+    top: 0;
+  }
+}
+
+.button-block {
+  display: flex;
+  justify-content: space-between;
+
+  .button {
+    background: #fff;
+    color: #22577A;
+    font-family: 'Nunito Sans','Avenir Next','Segoe UI','Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    padding: 10px 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 2px solid rgba(0,0,0,0);
+    margin-right: 20px;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    &:hover {
+      box-shadow: 0 4px 10px rgb(0 0 0 / 15%);
+    }
+  }
+
+  
+  .save-dropdown {
+    position: relative;
+    display: inline-block;
+    
+    .save {
+      font-family: inherit;
+      padding-left: 5px;
+    }
+    .dropdown-arrow {
+      width: 0; 
+      height: 0; 
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 4px solid #22577A;
+      margin: 0 5px 0 10px;
+    }
+  }
+
+  .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    position: absolute;
+    background: #fff;
+    border-radius: 5px;
+    margin-top: 2px;
+    user-select: none;
+    color: #22577A;
+
+    .dropdown-option {
+      padding: 8px;
+      font-family: 'Nunito Sans','Avenir Next','Segoe UI','Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+
+      &:hover {
+        background: #eee;
+        cursor: pointer;
+      }
+
+      &.option-new {
+        margin: 4px 4px 0;
+      }
+
+      &.option-update {
+        margin: 0 4px 4px;
+      }
     }
   }
 }
