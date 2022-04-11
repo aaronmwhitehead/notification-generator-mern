@@ -61,67 +61,24 @@ const ITEMS = [
     }
 ];
 
-class CreateEmailTest extends Component {
-  defaultState = {
-    [uuid()]: [
-      {
-        content: "Button",
-        id: "1fa08bq5-370e-4796-d97d4-6aef90bd0106",
-        fieldProps: {
-          url: 'https://cox.sumtotal.host',
-          align: "flex-start",
-          width: null,
-          height: null,
-          label: "Mr. Button",
-          editor: []
-        }
-      },
-      {
-        content: "Button",
-        id: "1fa08bq5-370e-4796-97d4-6aef90bd0106",
-        fieldProps: {
-          url: 'https://cox.sumtotal.host',
-          align: "flex-start",
-          width: null,
-          height: null,
-          label: "Bsss",
-          editor: []
-        }
-      },
-      {
-        content: "Image",
-        id: "1fa08b55-370e-4596-97d4-6aef90bd0106",
-        fieldProps: {
-          url: '../assets/default-banner.png',
-          align: "flex-end",
-          width: "45",
-          height: "40",
-          label: null,
-          editor: []
-        }
-      },
-      {
-        content: "Button",
-        id: "1fa08bq5-370e-4596-97d4-6aef90bd0106",
-        fieldProps: {
-          url: 'https://cox.sumtotal.host',
-          align: "center",
-          width: null,
-          height: null,
-          label: "Buttonssssss",
-          editor: []
-        }
-      }
-    ]
-  }
-
+class UpdateEmail extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   componentDidMount() {
-    this.setState(this.defaultState)
+    console.log("Print id: " + this.props.match.params.id);
+    axios
+      .get('https://notification-generator-mern.herokuapp.com/'+this.props.match.params.id)
+      .then(res => {
+        this.setState({
+          [this.props.match.params.id]: JSON.parse(res.data.content)
+        }, () => {console.log(this.state)})
+      })
+      .catch(err => {
+        console.log("Error from UpdateEmailInfo");
+      })
   };
 
   updateState = ((value) => {
@@ -303,4 +260,4 @@ class CreateEmailTest extends Component {
 }
 
 // Put the things into the DOM!
-export default CreateEmailTest;
+export default UpdateEmail;

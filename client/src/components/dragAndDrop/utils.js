@@ -79,6 +79,7 @@ export const saveTemplate = ((data) => {
 });
 
 export const updateTemplate = ((data) => {
+  console.log('in update')
   var result = {
     id: Object.keys(data)[0],
     content: Object.values(data)[0],

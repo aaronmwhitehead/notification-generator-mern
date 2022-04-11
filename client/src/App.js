@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './styles/css/App.css';
 import CreateEmailTest from './components/dragAndDrop/CreateEmailTest';
+import UpdateEmail from './components/dragAndDrop/UpdateEmail';
 // import ShowEmailList from './components/ShowEmailList';
 // import ShowEmailDetails from './components/ShowEmailDetails';
 import UpdateEmailInfo from './components/UpdateEmailInfo';
@@ -18,8 +19,8 @@ class App extends Component {
     return (
       <DndProvider backend={HTML5Backend}>
         <Router>
-            <Route path='/' component={CreateEmailTest} />
-            <Route path='/edit-email/:id' component={UpdateEmailInfo} />
+            <Route exact path='/' component={CreateEmailTest} />
+            <Route path='/:id' component={UpdateEmail} />
         </Router>
       </DndProvider>
     );
