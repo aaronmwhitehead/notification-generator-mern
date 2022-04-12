@@ -70,14 +70,15 @@ class UpdateEmail extends Component {
   componentDidMount() {
     console.log("Print id: " + this.props.match.params.id);
     axios
-      .get('https://notification-generator-mern.herokuapp.com/'+this.props.match.params.id)
-      .then(res => {
+      .get(`http://localhost:8082/api/${this.props.match.params.id}`)
+      .then(result => {
+        console.log(result);
         this.setState({
-          [this.props.match.params.id]: JSON.parse(res.data.content)
+          [this.props.match.params.id]: JSON.parse(result.data.content)
         }, () => {console.log(this.state)})
       })
       .catch(err => {
-        console.log("Error from UpdateEmailInfo");
+        console.log("Error from UpdateEmailInfo: ", err);
       })
   };
 

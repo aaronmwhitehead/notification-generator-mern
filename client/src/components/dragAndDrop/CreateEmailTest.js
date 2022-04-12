@@ -121,7 +121,22 @@ class CreateEmailTest extends Component {
   }
 
   componentDidMount() {
-    this.setState(this.defaultState)
+    console.log(this.props)
+    if(this.props.defaultTemplate) {
+      this.setState(this.defaultState)
+    } else {
+      axios
+        .get(`http://localhost:8082/api/${this.props.match.params.id}`)
+        .then(result => {
+          console.log(result);
+          this.setState({
+            [this.props.match.params.id]: JSON.parse(result.data.content)
+          }, () => {console.log(this.state)})
+        })
+        .catch(err => {
+          console.log("Error from UpdateEmailInfo: ", err);
+        })
+    }
   };
 
   updateState = ((value) => {
@@ -209,7 +224,7 @@ class CreateEmailTest extends Component {
   render() {
     return (
       <div>
-        <Header onSaveNew={(data) => {this.onSaveNew(data)}} state={this.state}/>
+        <Header showUpdate={this.props.defaultTemplate} onSaveNew={(data) => {this.onSaveNew(data)}} state={this.state}/>
         <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
             <Droppable droppableId="ITEMS" isDropDisabled={true}>
                 {(provided, snapshot) => (

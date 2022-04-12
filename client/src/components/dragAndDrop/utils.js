@@ -53,41 +53,31 @@ export const saveState = ((oldState, value) => {
 });
 
 export const saveTemplate = ((data) => {
-  // // // console.log('from save: ', Object.values(result)[0]);
-  // // const doc = new Email({
-  // //   id: Object.keys(result)[0],
-  // //   content: Object.values(result)[0]
-  // // });
-  
-  // // doc.save((err, doc) => {
-  // //   if(err) return console.log(err)
-  // //   console.log(doc)
-  // // });
-  // var result = {
-  //   id: uuid(),
-  //   content: Object.values(data)[0],
-  // }
-  // axios
-  //   .post(`http://localhost:8082/`, result)
-  //   .then((res) => {
-  //     console.log(res)
-  //   })
-  //   .catch(err => {
-  //     console.log("Error in post: ", err);
-  //   })
-  console.log('current state: ',data)
+  var result = {
+    id: uuid(),
+    content: Object.values(data)[0],
+  }
+  axios
+    .post(`http://localhost:8082/api/${result.id}`, result)
+    .then(() => {
+      alert('Saved new template')
+      window.location.href = `http://localhost:8082/${result.id}`;
+    })
+    .catch(err => {
+      console.log("Error in post: ", err);
+    })
 });
 
 export const updateTemplate = ((data) => {
-  console.log('in update')
   var result = {
     id: Object.keys(data)[0],
     content: Object.values(data)[0],
   }
   axios
-    .post(`https://notification-generator-mern.herokuapp.com/${result.id}`, result)
+    .post(`http://localhost:8082/api/${result.id}`, result)
     .then((res) => {
-      console.log(res)
+      alert('Updated current template')
+      window.location.href = `http://localhost:8082/${result.id}`;
     })
     .catch(err => {
       console.log("Error in post: ", err);

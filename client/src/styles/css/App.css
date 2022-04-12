@@ -482,10 +482,12 @@ body, #root {
   border-top: 4px solid #22577A;
   margin: 0 5px 0 10px;
 }
-.button-block .dropdown-content {
+.button-block .save-dropdown:focus-within .dropdown-content {
   display: flex;
+}
+.button-block .dropdown-content {
   flex-direction: column;
-  width: 180px;
+  width: 210px;
   position: absolute;
   background: #fff;
   border-radius: 5px;
