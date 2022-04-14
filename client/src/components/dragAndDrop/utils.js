@@ -58,11 +58,11 @@ export const updateTemplate = ((data, newTemp) => {
     content: Object.values(data)[0],
   }
   axios
-    .post(`http://localhost:8082/api/${result.id}`, result)
+    .post(`http://learnatcox-notif-generator.herokuapp.com/api/${result.id}`, result)
     .then((res) => {
       document.querySelector('.banner-save').style.display = 'flex';
       setTimeout(() => {
-        window.location.href = `http://localhost:8082/${result.id}`;
+        window.location.href = `http://learnatcox-notif-generator.herokuapp.com/${result.id}`;
       }, 2000)
     })
     .catch(err => {

@@ -704,6 +704,8 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   border-radius: 100%;
   padding: 3px;
   color: #fff;
+  width: 30px;
+  height: 25px;
 }
 .container-share .share-modal .generate-input .copy:hover, .container-share .generate-modal .generate-input .copy:hover, .container-generate .share-modal .generate-input .copy:hover, .container-generate .generate-modal .generate-input .copy:hover {
   background-color: #2a6084;
