@@ -4,7 +4,7 @@ import Element from "../element/Element";
 import Field from '../fields/Field';
 import uuid from 'uuid/v4';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { reorder, copy, move, remove, saveState, saveTemplate } from './utils';
+import { reorder, copy, move, saveState, updateTemplate } from './utils';
 import Content from './Content';
 import Item from './Item';
 import ListItem from './ListItem';
@@ -18,6 +18,9 @@ import {RiDragMove2Fill} from 'react-icons/ri'
 import Delete from './Delete';
 import { CgTrash } from 'react-icons/cg';
 import axios from 'axios';
+import SavedBanner from '../SavedBanner';
+import ShareModal from '../ShareModal';
+import GenerateModal from '../GenerateModal';
 
 const ITEMS = [
     {
@@ -41,8 +44,8 @@ const ITEMS = [
         fieldProps: {
           url: '../assets/default-banner.png',
           align: "center",
-          width: "45",
-          height: "40",
+          width: null,
+          height: null,
           label: null,
           editor: []
         }
@@ -61,58 +64,9 @@ const ITEMS = [
     }
 ];
 
-class CreateEmailTest extends Component {
+class CreateEmail extends Component {
   defaultState = {
-    [uuid()]: [
-      {
-        content: "Button",
-        id: "1fa08bq5-370e-4796-d97d4-6aef90bd0106",
-        fieldProps: {
-          url: 'https://cox.sumtotal.host',
-          align: "flex-start",
-          width: null,
-          height: null,
-          label: "Mr. Button",
-          editor: []
-        }
-      },
-      {
-        content: "Button",
-        id: "1fa08bq5-370e-4796-97d4-6aef90bd0106",
-        fieldProps: {
-          url: 'https://cox.sumtotal.host',
-          align: "flex-start",
-          width: null,
-          height: null,
-          label: "Bsss",
-          editor: []
-        }
-      },
-      {
-        content: "Image",
-        id: "1fa08b55-370e-4596-97d4-6aef90bd0106",
-        fieldProps: {
-          url: '../assets/default-banner.png',
-          align: "flex-end",
-          width: "45",
-          height: "40",
-          label: null,
-          editor: []
-        }
-      },
-      {
-        content: "Button",
-        id: "1fa08bq5-370e-4596-97d4-6aef90bd0106",
-        fieldProps: {
-          url: 'https://cox.sumtotal.host',
-          align: "center",
-          width: null,
-          height: null,
-          label: "Buttonssssss",
-          editor: []
-        }
-      }
-    ]
+    [uuid()]: []
   }
 
   constructor(props) {
@@ -121,17 +75,15 @@ class CreateEmailTest extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     if(this.props.defaultTemplate) {
       this.setState(this.defaultState)
     } else {
       axios
         .get(`http://localhost:8082/api/${this.props.match.params.id}`)
         .then(result => {
-          console.log(result);
           this.setState({
             [this.props.match.params.id]: JSON.parse(result.data.content)
-          }, () => {console.log(this.state)})
+          })
         })
         .catch(err => {
           console.log("Error from UpdateEmailInfo: ", err);
@@ -140,18 +92,19 @@ class CreateEmailTest extends Component {
   };
 
   updateState = ((value) => {
+    window.saved = false;
     this.setState({
       [Object.keys(this.state)[0]]: saveState(this.state, value)
     });
   });
 
   onSaveNew = ((data) => {
-    console.log('old state: ', this.state);
     this.setState({[Object.keys(this.state)[0]]: Object.values(data)[0]}
-      , () => saveTemplate(this.state));
+      , () => updateTemplate(this.state, true));
   })
 
   onDeleteSection = ((result) => {
+    window.saved = false;
     const objId = result.target.closest('.delete-block').getAttribute("data-uuid");
     let currentState = Object.values(this.state)[0];
     const indexOfObject = currentState.findIndex(object => {
@@ -171,44 +124,45 @@ class CreateEmailTest extends Component {
     });
   });
   onDragEnd = result => {
-      const { source, destination } = result;
+    window.saved = false;
+    const { source, destination } = result;
 
-      // dropped outside the list
-      if (!destination) {
-          return;
-      }
+    // dropped outside the list
+    if (!destination) {
+        return;
+    }
 
-      switch (source.droppableId) {
-          case destination.droppableId:
-              this.setState({
-                  [destination.droppableId]: reorder(
-                      this.state[source.droppableId],
-                      source.index,
-                      destination.index
-                  )
-              });
-              break;
-          case 'ITEMS':
-              this.setState({
-                  [destination.droppableId]: copy(
-                      ITEMS,
-                      this.state[destination.droppableId],
-                      source,
-                      destination
-                  )
-              });
-              break;
-          default:
-            console.log('default drag')
-              this.setState(
-                  move(
-                      this.state[source.droppableId],
-                      this.state[destination.droppableId],
-                      source,
-                      destination
-                  )
-              );
-              break;
+    switch (source.droppableId) {
+        case destination.droppableId:
+            this.setState({
+                [destination.droppableId]: reorder(
+                    this.state[source.droppableId],
+                    source.index,
+                    destination.index
+                )
+            });
+            break;
+        case 'ITEMS':
+            this.setState({
+                [destination.droppableId]: copy(
+                    ITEMS,
+                    this.state[destination.droppableId],
+                    source,
+                    destination
+                )
+            });
+            break;
+        default:
+          console.log('default drag')
+            this.setState(
+                move(
+                    this.state[source.droppableId],
+                    this.state[destination.droppableId],
+                    source,
+                    destination
+                )
+            );
+            break;
       }
       
       document.querySelectorAll('.slate-toolbar').forEach((el) => {
@@ -224,7 +178,10 @@ class CreateEmailTest extends Component {
   render() {
     return (
       <div>
-        <Header showUpdate={this.props.defaultTemplate} onSaveNew={(data) => {this.onSaveNew(data)}} state={this.state}/>
+        <ShareModal/>
+        <GenerateModal data={JSON.stringify(this.state)}/>
+        <SavedBanner/>
+        <Header onDeleteTemplate={() => {this.setState({[Object.keys(this.state)[0]]: {}})}} showUpdate={this.props.defaultTemplate} onSaveNew={(data) => {this.onSaveNew(data)}} state={this.state}/>
         <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
             <Droppable droppableId="ITEMS" isDropDisabled={true}>
                 {(provided, snapshot) => (
@@ -302,9 +259,7 @@ class CreateEmailTest extends Component {
                                               </Draggable>
                                           )
                                       )
-                                    : !provided.placeholder && (
-                                          <Notice>Drop items here</Notice>
-                                      )}
+                                    : <Notice>Drag items from the left and drop them here</Notice>}
                                 {provided.placeholder}
                             </Container>
                         )}
@@ -318,4 +273,4 @@ class CreateEmailTest extends Component {
 }
 
 // Put the things into the DOM!
-export default CreateEmailTest;
+export default CreateEmail;

@@ -68,14 +68,12 @@ class UpdateEmail extends Component {
   }
 
   componentDidMount() {
-    console.log("Print id: " + this.props.match.params.id);
     axios
       .get(`http://localhost:8082/api/${this.props.match.params.id}`)
       .then(result => {
-        console.log(result);
         this.setState({
           [this.props.match.params.id]: JSON.parse(result.data.content)
-        }, () => {console.log(this.state)})
+        })
       })
       .catch(err => {
         console.log("Error from UpdateEmailInfo: ", err);
@@ -89,7 +87,6 @@ class UpdateEmail extends Component {
   });
 
   onSaveNew = ((data) => {
-    console.log('old state: ', this.state);
     this.setState({[Object.keys(this.state)[0]]: Object.values(data)[0]}
       , () => saveTemplate(this.state));
   })

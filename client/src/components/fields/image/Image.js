@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ImageEditor from './ImageEditor';
 
 class Image extends Component{
+  imgRef = React.createRef();
+
   constructor(props) {
     super(props);
     this.handleImageChange = this.handleImageChange.bind(this);
@@ -47,12 +49,20 @@ class Image extends Component{
     }
     this.props.onSizeChange(target);
   }
+  setDefaultDimensions() {
+    if(this.state.width == null) {
+      this.setState({
+        width: this.imgRef.current.naturalWidth >= 620 ? 620 : this.imgRef.current.naturalWidth,
+        height: this.imgRef.current.naturalWidth >= 620 ? Math.ceil(620 * this.imgRef.current.naturalHeight/this.imgRef.current.naturalWidth) : this.imgRef.current.naturalHeight
+      })
+    }
+  };
 
   render() {
     return(
       <div className='image-container' tabIndex={0} style={{ justifyContent: this.state.align }}>
-        <ImageEditor defaultAlign={this.state.align} onInputChange={this.handleImageChange} onAlignChange={this.handleAlignChange} onSizeChange={this.handleSizeChange}/>
-        <img height={this.state.height} width={this.state.width} src={this.state.url}></img>
+        <ImageEditor url={this.state.url} width={this.state.width} height={this.state.height} defaultAlign={this.state.align} onInputChange={this.handleImageChange} onAlignChange={this.handleAlignChange} onSizeChange={this.handleSizeChange}/>
+        <img alt={`CAI_Image${this.state.width}x${this.state.height}`} ref={this.imgRef} onLoad={() => this.setDefaultDimensions()} width={this.state.width} src={this.state.url}></img>
       </div>  
     )
   }

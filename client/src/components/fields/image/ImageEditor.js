@@ -21,11 +21,20 @@ class ImageEditor extends Component {
     this.props.onAlignChange(value);
   }
 
-  handleSizeChange = (e) => {
+  handleSizeChange = (e, name) => {
     if(e.target.value > 620)
       e.target.value = 620;
     if(e.target.value < 0)
       e.target.value = 0 
+    if(name === 'height') {
+      this.setState({
+        naturalHeight: e.target.value
+      })
+    } else {
+      this.setState({
+        naturalWidth: e.target.value
+      })
+    }
     this.props.onSizeChange(e.target);
   }
   
@@ -36,7 +45,7 @@ class ImageEditor extends Component {
           <div className="header">
             <span className="label">IMAGE URL</span>
           </div>
-          <input className="input" onChange={(e) => this.handleChange(e)} type='text'></input>
+          <input value={this.props.url !== '../assets/default-banner.png' ? this.props.url : ''} className="input" onChange={(e) => this.handleChange(e)} type='text'></input>
         </div>
         <div className="editor-section">
           <div className="header editor-section-align">
@@ -44,11 +53,11 @@ class ImageEditor extends Component {
             <Align defaultAlign={this.props.defaultAlign} uuid={this.uuid} passAlignChange={(value) => this.handleAlignChange(value)}/>
           </div>
         </div>
-        <div className="editor-section">
-          <div className="label">WIDTH</div>
-          <input onChange={(e) => this.handleSizeChange(e)} name="width" className="input" type="number" min="0" max="620" step={5} defaultValue="45"></input>
-          <div className="label">HEIGHT</div>
-          <input onChange={(e) => this.handleSizeChange(e)} name="height" className="input" type="number" min="0" max="620" step={5} defaultValue="40"></input>
+        <div className="editor-section editor-dimensions">
+          <div className="scale-container">
+            <div className="label">SCALE</div>
+            <input className="input scale" onChange={(e) => this.handleSizeChange(e, e.target.name)} name="width" type="range" min="0" max="620" defaultValue={this.props.width}></input>
+          </div>
         </div>
       </div>  
     )

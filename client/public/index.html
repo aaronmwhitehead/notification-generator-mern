@@ -44,14 +44,32 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
-      window.onload = function(){
-        var divToHide = document.querySelector('.dropdown-content');
+      window.onload = () => {
+        window.saved = true;
+        var hideDropdown = document.querySelector('.dropdown-content');
+        var hideShareModal = document.querySelector('.container-share');
+        var hideGenerateModal = document.querySelector('.container-generate');
         document.onmousedown = function(e){
           if(!e.target.closest('.save-dropdown')){
-            divToHide.style.display = 'none';
+            hideDropdown.style.display = 'none';
+          }
+          if(!e.target.closest('.share-modal') || $(e.target).hasClass('close-modal')){
+            hideShareModal.style.display = 'none';
+          }
+          if(!e.target.closest('.generate-modal') || $(e.target).hasClass('close-modal') || $(e.target).parent().hasClass('close-modal')){
+            hideGenerateModal.style.display = 'none';
           }
         };
       };
+
+      // window.onbeforeunload = () => {
+      //   console.log(window.saved)
+      //   if(!window.saved) {
+      //     return 'Changes you made may not be saved. Are you sure?'
+      //   } else {
+      //     retun;
+      //   }
+      // };
     </script>
     <!-- bootstrap JS cdn -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

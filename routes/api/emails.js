@@ -20,7 +20,6 @@ router.get('/:id', (req, res) => {
 // @description add/save email
 // @access Public
 router.post('/:id', (req, res) => {
-  console.log(req.body.id);
   Email.findByIdAndUpdate(req.body.id, {content: JSON.stringify(req.body.content), updated_date: Date.now()}, { new: true, upsert: true })
     .then((template) => {
       res.json(template)

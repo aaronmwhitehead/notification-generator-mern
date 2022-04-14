@@ -13,6 +13,7 @@ import BlockButton from './BlockButton';
 import { toggleMark } from './utils';
 import { withKeyCommands } from './withKeyCommands';
 import { withLinks } from './withLinks';
+import ColorButton from './ColorButton';
 
 const HOTKEYS = {
     'mod+b': 'bold',
@@ -41,6 +42,7 @@ const RichEditor = (props) => {
                 <MarkButton className='icon icon-bold' format="bold" icon="format_bold" />
                 <MarkButton format="italic" icon="format_italic" />
                 <MarkButton format="underline" icon="format_underlined" />
+                {/* <ColorButton icon="color-picker"/> */}
                 <BlockButton format="heading-one" icon="heading-one" />
                 <BlockButton format="heading-two" icon="heading-two" />
                 <BlockButton format="heading-three" icon="heading-three" />
