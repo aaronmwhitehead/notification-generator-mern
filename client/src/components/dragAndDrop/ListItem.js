@@ -6,7 +6,6 @@ const ListItem = styled.div`
     user-select: none;
     line-height: 1.5;
     border-radius: 3px;
-    width: 70%;
 
     &:focus-within {
       .drag-handle, .delete-block {
