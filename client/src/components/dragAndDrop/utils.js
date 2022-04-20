@@ -78,7 +78,7 @@ const generateMarkup = ((list) => {
   list.forEach((child) => {
     if(child.text) {
       if(child.fontSize) {
-        outputString += `<span style="font-size:${child.fontSize}">${child.text}</span>`;
+        outputString += `<span style="font-size:${child.fontSize}">${child.text}</span>`; 
       } else {
         outputString += child.text;
       }
