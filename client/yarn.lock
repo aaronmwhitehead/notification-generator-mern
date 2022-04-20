@@ -8805,7 +8805,7 @@
     "redux" "^4.0.1"
     "tiny-invariant" "^1.0.3"
 
-"react-color@^2.13.8":
+"react-color@^2.13.8", "react-color@^2.19.3":
   "integrity" "sha512-LEeGE/ZzNLIsFWa1TMe8y5VYqr7bibneWmvJwm1pCn/eNmrabWDh659JSPn9BuaMpEfU83WTOJfnCcjDZwNQTA=="
   "resolved" "https://registry.npmjs.org/react-color/-/react-color-2.19.3.tgz"
   "version" "2.19.3"

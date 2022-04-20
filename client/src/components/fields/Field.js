@@ -46,6 +46,16 @@ const Field = (props) => {
     });
   }
 
+  const setDefaultWidth = (width) => {
+    setValue({
+      ...value,
+      fieldProps: {
+        ...value.fieldProps,
+        width: width
+      },
+    });
+  }
+
   const handleURLChange = (url) => {
     setValue({
       ...value,
@@ -88,7 +98,7 @@ const Field = (props) => {
     case 'Image':
       return (
         <div className='component-container'>
-          <Image item={value} onURLChange={(url) => handleURLChange(url)} onSizeChange={(target) => handleSizeChange(target)} onAlignChange={(alignmentValue) => handleAlignChange(alignmentValue)}/>
+          <Image item={value} onNewImage={(width) => setDefaultWidth(width)} onURLChange={(url) => handleURLChange(url)} onSizeChange={(target) => handleSizeChange(target)} onAlignChange={(alignmentValue) => handleAlignChange(alignmentValue)}/>
         </div>
       )
     case 'Button':

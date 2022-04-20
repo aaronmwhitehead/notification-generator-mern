@@ -38,7 +38,7 @@ const Header = (props) => {
     <div className="page-header" >
       <span className="header-title">Learn@Cox Notification Template Generator</span>
       <div className='button-block'>
-        <div onClick={confirmDelete} className='button button-delete'>Remove All Elements</div>
+        <div onClick={confirmDelete} className='button button-delete'>Clear Template</div>
         <div className="save-dropdown" onClick={(e) => openDropdown(e)}>
           <div className='button button-save'>
             <div className='save'>Save</div>

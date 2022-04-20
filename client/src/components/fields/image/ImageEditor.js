@@ -45,7 +45,7 @@ class ImageEditor extends Component {
           <div className="header">
             <span className="label">IMAGE URL</span>
           </div>
-          <input value={this.props.url !== '../assets/default-banner.png' ? this.props.url : ''} className="input" onChange={(e) => this.handleChange(e)} type='text'></input>
+          <input value={this.props.url !== '../assets/default-banner.png' ? this.props.url : ''} className="input input-img-url" onChange={(e) => this.handleChange(e)} type='text'></input>
         </div>
         <div className="editor-section">
           <div className="header editor-section-align">

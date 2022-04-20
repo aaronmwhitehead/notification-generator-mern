@@ -2,6 +2,7 @@ import { Editor, Range, Path, Transforms } from 'slate';
 import {ReactEditor} from 'slate-react';
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
+const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify']
 
 export const createLinkNode = (href, text) => ({
   type: "link",
@@ -63,17 +64,36 @@ export const insertLink = (editor, url) => {
 };
 
 export const toggleBlock = (editor, format) => {
-  const isActive = isBlockActive(editor, format)
+  if(!TEXT_ALIGN_TYPES.includes(format)) {
+    Editor.removeMark(editor, 'fontSize');
+  }
+
+  const isActive = isBlockActive(
+    editor,
+    format,
+    TEXT_ALIGN_TYPES.includes(format) ? 'align' : 'type'
+  )
   const isList = LIST_TYPES.includes(format)
 
   Transforms.unwrapNodes(editor, {
-    match: n => LIST_TYPES.includes(n.type),
+    match: n =>
+      !Editor.isEditor(n) &&
+      LIST_TYPES.includes(n.type) &&
+      !TEXT_ALIGN_TYPES.includes(format),
     split: true,
   })
 
-  Transforms.setNodes(editor, {
-    type: isActive ? 'paragraph' : isList ? 'list-item' : format,
-  })
+  let newProperties;
+  if (TEXT_ALIGN_TYPES.includes(format)) {
+    newProperties = {
+      align: isActive ? undefined : format,
+    }
+  } else {
+    newProperties = {
+      type: isActive ? 'paragraph' : isList ? 'list-item' : format,
+    }
+  }
+  Transforms.setNodes(editor, newProperties)
 
   if (!isActive && isList) {
     const block = { type: format, children: [] }
@@ -90,15 +110,28 @@ export const toggleMark = (editor, format) => {
   }
 }
 
-export const isBlockActive = (editor, format) => {
-  const [match] = Editor.nodes(editor, {
-      match: n => n.type === format,
-  })
+export const isBlockActive = (editor, format, blockType = 'type') => {
+  const { selection } = editor
+  if (!selection) return false
+
+  const [match] = Array.from(
+    Editor.nodes(editor, {
+      at: Editor.unhangRange(editor, selection),
+      match: n =>
+        !Editor.isEditor(n) &&
+        n[blockType] === format,
+    })
+  )
+
   return !!match
 }
 
 export const isMarkActive = (editor, format) => {
   const marks = Editor.marks(editor)
+  var fontSizeInput = document.querySelector('.input-font-size');
+  if(marks) {
+    fontSizeInput.value = marks.fontSize ? marks.fontSize :'16px'
+  }
   return marks ? marks[format] === true : false
 }
 
@@ -106,3 +139,35 @@ export const createParagraphNode = (children = [{ text: "" }]) => ({
   type: "paragraph",
   children
 });
+
+export const adjustMark = (editor, format, value) => {
+  Editor.removeMark(editor, format)
+  Editor.addMark(editor, format, value)
+}
+
+export const isAlignActive = (editor, format) => {
+  const [match] = Editor.nodes(editor, {
+      match: n => n.type === format,
+  })
+  return !!match
+}
+
+export const toggleAlign = (editor, format) => {
+  Editor.removeMark(editor, 'fontSize');
+  const isActive = isAlignActive(editor, format)
+  const isList = LIST_TYPES.includes(format)
+
+ Transforms.unwrapNodes(editor, {
+    match: n => LIST_TYPES.includes(n.type),
+    split: true,
+  })
+
+  Transforms.setNodes(editor, {
+    type: isActive ? 'paragraph' : isList ? 'list-item' : format,
+  })
+
+  if (!isActive && isList) {
+    const block = { type: format, children: [] }
+    Transforms.wrapNodes(editor, block)
+  }
+}

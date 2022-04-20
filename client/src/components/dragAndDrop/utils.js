@@ -59,10 +59,12 @@ export const updateTemplate = ((data, newTemp) => {
   }
   axios
     .post(`https://learnatcox-notif-generator.herokuapp.com/api/${result.id}`, result)
+    // .post(`https://localhost:8082/api/${result.id}`, result)
     .then((res) => {
       document.querySelector('.banner-save').style.display = 'flex';
       setTimeout(() => {
         window.location.href = `https://learnatcox-notif-generator.herokuapp.com/${result.id}`;
+        // window.location.href = `https://localhost:8082/${result.id}`;
       }, 2000)
     })
     .catch(err => {
@@ -75,7 +77,12 @@ const generateMarkup = ((list) => {
 
   list.forEach((child) => {
     if(child.text) {
-      outputString += child.text;
+      if(child.fontSize) {
+        outputString += `<span style="font-size:${child.fontSize}">${child.text}</span>`;
+      } else {
+        outputString += child.text;
+      }
+      
       if(child.bold) {
         outputString = `<strong>${outputString}</strong>`
       }
@@ -90,9 +97,7 @@ const generateMarkup = ((list) => {
       outputString = `<a href="${child.href}">${generateMarkup(child.children)}</a>`
     }
     if(child.type === 'list-item') {
-      console.log('child: ', child)
       outputString += `<li>${generateMarkup(child.children)}</li>`
-      console.log('outputstring after li: ', outputString);
     }
   })
   return outputString;
@@ -104,8 +109,8 @@ export const generateHTML = ((result) => {
   var outputContainer = document.querySelector('.html-textarea');
 
   outputContainer.value = `<!doctype html><html><head><meta charset="utf-8"></head><body width="620" style="margin: 0; padding: 0 !important; background: #f3f3f5; mso-line-height-rule: exactly;"><center style="width: 100%; background: #f3f3f5;"><div id="email" style="width:620px;margin: auto;background:#eee;"><table role="presentation" border="0" width="100%" cellspacing="0"><tr><td align="center" style="padding: 0"><table style="background: #fff;" role="presentation" align="center" border="0" width="620" cellspacing="0">`;
-
- Object.values(result)[0].forEach((el) => {
+  // console.log(result);
+  Object.values(result)[0].forEach((el) => {
     switch(el.content) {
       case 'Image':
         outputContainer.value += `<tr><td align="${el.fieldProps.align === 'flex-start' ? 'left' : el.fieldProps.align === 'center' ? 'center' : 'right'}" style="padding: 0"><img alt="${el.id}" src="${el.fieldProps.url}" width="${el.fieldProps.width}"></td></tr>`
@@ -118,31 +123,31 @@ export const generateHTML = ((result) => {
           console.log(element)
           switch(element.type) {
             case 'heading-one':
-              outputContainer.value += `<tr><td style="padding:10px"><h1 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h1></td></tr>`;
+              outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h1 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h1></td></tr>`;
               break;
             case 'heading-two':
-              outputContainer.value += `<tr><td style="padding:10px"><h2 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h2></td></tr>`;
+              outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h2 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h2></td></tr>`;
               break;
             case 'heading-three':
-              outputContainer.value += `<tr><td style="padding:10px"><h3 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h3></td></tr>`;
+              outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h3 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h3></td></tr>`;
               break;
             case 'heading-four':
-              outputContainer.value += `<tr><td style="padding:10px"><h4 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h4></td></tr>`;
+              outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h4 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h4></td></tr>`;
               break;
             case 'heading-five':
-              outputContainer.value += `<tr><td style="padding:10px"><h5 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h5></td></tr>`;
+              outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h5 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h5></td></tr>`;
               break;
             case 'heading-six':
-              outputContainer.value += `<tr><td style="padding:10px"><h6 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h6></td></tr>`;
+              outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h6 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h6></td></tr>`;
               break;
             case 'bulleted-list':
-              outputContainer.value += `<tr><td style="padding:10px"><ul style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</ul></td></tr>`;
+              outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><ul style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</ul></td></tr>`;
               break;
             case 'numbered-list':
-              outputContainer.value += `<tr><td style="padding:10px"><ol style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</ol></td></tr>`;
+              outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><ol style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</ol></td></tr>`;
               break;
             case 'paragraph':
-              outputContainer.value += `<tr><td style="padding:10px"><p style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</p></td></tr>`;
+              outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><p style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</p></td></tr>`;
               break;
             default:
               break;
@@ -155,6 +160,8 @@ export const generateHTML = ((result) => {
   });
 
   outputContainer.value += `</table></td></tr></table></div></center></body></html>`;
-
+  outputContainer.value = outputContainer.value.replace(/[\u2019]/g, "'");
+  outputContainer.value = outputContainer.value.replace(/[^\x00-\x7F]/g, " ");
+  outputContainer.value = outputContainer.value.replace("  ", " ");
   // document.querySelector('.html-textarea').value = finalOutput;
 });

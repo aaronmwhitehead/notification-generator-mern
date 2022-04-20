@@ -12,7 +12,11 @@ const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.underline) {
     children = <u>{children}</u>
   }
-  
+
+  if(leaf.fontSize) {
+    children = <span style={{fontSize: leaf.fontSize}}>{children}</span>
+  }
+ 
   return <span {...attributes}>{children}</span>
 }
 

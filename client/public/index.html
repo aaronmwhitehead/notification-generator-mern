@@ -32,6 +32,7 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div role="alert" id='alert-if-safari'></div>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -44,7 +45,20 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
+        
+        var is_safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        if (is_safari) {
+            const alert_div = document.getElementById('alert-if-safari')
+            alert_div.className = 'alert alert-danger'
+            alert_div.innerHTML = 'Warning: This site has some issues on Safari. For the best experience, please use Chrome or Firefox.'
+        }
+
+    </script>
+    <script>
       window.onload = () => {
+        if(window.location.href != 'https://learnatcox-notif-generator.herokuapp.com/') {
+          !window.localStorage.setItem('tutorialFlag', true)
+        }
         window.saved = true;
         var hideDropdown = document.querySelector('.dropdown-content');
         var hideShareModal = document.querySelector('.container-share');
@@ -62,17 +76,18 @@
         };
       };
 
-      // window.onbeforeunload = () => {
-      //   console.log(window.saved)
-      //   if(!window.saved) {
-      //     return 'Changes you made may not be saved. Are you sure?'
-      //   } else {
-      //     retun;
-      //   }
-      // };
+      window.onbeforeunload = () => {
+        console.log(window.saved)
+        if(!window.saved) {
+          return 'Changes you made may not be saved. Are you sure?'
+        } else {
+          retun;
+        }
+      };
     </script>
     <!-- bootstrap JS cdn -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="./jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 

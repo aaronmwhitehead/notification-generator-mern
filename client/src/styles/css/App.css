@@ -2,6 +2,13 @@
   margin: 0;
   padding: 0;
   font-family: "Nunito Sans", "Avenir Next", "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none;
 }
 
 strong {
@@ -14,7 +21,6 @@ textarea {
 
 ol, ul {
   padding: 0 20px;
-  margin-bottom: 0 !important;
 }
 
 body, #root {
@@ -22,6 +28,11 @@ body, #root {
   height: 100vh;
   overflow: hidden;
   background: #f2f2f5;
+}
+
+.alert {
+  z-index: 999;
+  height: 70px;
 }
 
 /* EmailList Styles */
@@ -270,9 +281,28 @@ body, #root {
 .slate-toolbar:focus {
   outline: none;
 }
+.slate-toolbar label {
+  margin: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0);
+  width: 30px;
+  height: 26px;
+  text-align: center;
+}
+.slate-toolbar label:hover, .slate-toolbar label:focus {
+  border: 1px solid #80ED99;
+}
 
-.slate-paragraph {
+.slate-element {
+  color: #575757;
+}
+
+.slate-paragraph, .slate-ol, .slate-ul {
   margin-bottom: 1rem;
+}
+.slate-paragraph li, .slate-ol li, .slate-ul li {
+  margin-bottom: 0.5rem;
 }
 
 .dTCEPV .hOLBZg .component-container .text-input .slate-toolbar {
@@ -329,8 +359,25 @@ input[type=range]::-webkit-slider-runnable-track {
   border-radius: 3px;
   cursor: pointer;
 }
+input[type=range]::-moz-range-track {
+  width: 200px;
+  height: 8px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #80ED99;
+  margin-top: -4px;
+  cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
   border: none;
   height: 16px;
   width: 16px;
@@ -404,7 +451,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9;
+  z-index: 99;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -422,8 +469,8 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   position: relative;
 }
 .action-icon.drag-handle {
-  left: 667px;
-  z-index: 99;
+  left: 674px;
+  z-index: 98;
 }
 .action-icon.delete-block {
   left: -5px;

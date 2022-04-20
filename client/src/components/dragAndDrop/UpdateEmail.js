@@ -30,7 +30,7 @@ const ITEMS = [
           height: null,
           label: null,
           editor: [{
-            type: "parahraph",
+            type: "paragraph",
             children: [{ text: 'A line of text in a paragraph.' }],
           }]
         }
@@ -70,6 +70,7 @@ class UpdateEmail extends Component {
   componentDidMount() {
     axios
       .get(`https://learnatcox-notif-generator.herokuapp.com/api/${this.props.match.params.id}`)
+      // .get(`https://localhost:8082/api/${this.props.match.params.id}`)
       .then(result => {
         this.setState({
           [this.props.match.params.id]: JSON.parse(result.data.content)

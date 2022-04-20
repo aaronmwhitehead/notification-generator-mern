@@ -2,6 +2,12 @@
   margin: 0; 
   padding: 0;
   font-family: 'Nunito Sans','Avenir Next','Segoe UI','Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 strong {
@@ -14,7 +20,6 @@ textarea {
 
 ol, ul {
   padding: 0 20px;
-  margin-bottom: 0 !important;
 }
 
 body, #root {
@@ -24,6 +29,10 @@ body, #root {
   background: #f2f2f5;
 }
 
+.alert {
+  z-index: 999;
+  height: 70px;
+}
 
 /* EmailList Styles */
 .list {
@@ -286,10 +295,32 @@ body, #root {
   &:focus {
     outline: none;
   }
+
+  label {
+    margin: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0);
+    width: 30px;
+    height: 26px;
+    text-align: center;
+  
+    &:hover, &:focus {
+      border: 1px solid #80ED99;
+    }
+  }
 }
 
-.slate-paragraph {
+.slate-element {
+  color: #575757;
+}
+
+.slate-paragraph, .slate-ol, .slate-ul {
   margin-bottom: 1rem;
+
+  li {
+    margin-bottom: .5rem;
+  }
 }
 
 .dTCEPV .hOLBZg .component-container .text-input .slate-toolbar {
@@ -350,8 +381,27 @@ input[type=range] {
     cursor: pointer;
   }
 
+  &::-moz-range-track {
+    width: 200px;
+    height: 8px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #80ED99;
+    margin-top: -4px;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
     border: none;
     height: 16px;
     width: 16px;
@@ -434,7 +484,7 @@ input[type=range] {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9;
+  z-index: 99;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -453,8 +503,8 @@ input[type=range] {
   position: relative;
 
   &.drag-handle {
-    left: 667px;
-    z-index: 99;
+    left: 674px;
+    z-index: 98;
   }
 
   &.delete-block {

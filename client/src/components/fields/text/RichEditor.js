@@ -1,7 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { createEditor } from 'slate';
-import {
-  Slate, Editable, withReact} from 'slate-react';
+import {Slate, Editable, withReact} from 'slate-react';
 import { withHistory } from 'slate-history';
 import isHotkey from 'is-hotkey';
 import { LinkButton } from './LinkButton';
@@ -13,7 +12,8 @@ import BlockButton from './BlockButton';
 import { toggleMark } from './utils';
 import { withKeyCommands } from './withKeyCommands';
 import { withLinks } from './withLinks';
-import ColorButton from './ColorButton';
+import FontSizeButton from './FontSizeButton';
+import FontColorButton from './FontColorButton';
 
 const HOTKEYS = {
     'mod+b': 'bold',
@@ -42,7 +42,12 @@ const RichEditor = (props) => {
                 <MarkButton className='icon icon-bold' format="bold" icon="format_bold" />
                 <MarkButton format="italic" icon="format_italic" />
                 <MarkButton format="underline" icon="format_underlined" />
-                {/* <ColorButton icon="color-picker"/> */}
+                <BlockButton format="left" icon="align_left" />
+                <BlockButton format="center" icon="align_center" />
+                <BlockButton format="right" icon="align_right" />
+                <BlockButton format="justify" icon="align_justify" />
+                <FontSizeButton format="fontSize"/>
+                {/* <FontColorButton/> */}
                 <BlockButton format="heading-one" icon="heading-one" />
                 <BlockButton format="heading-two" icon="heading-two" />
                 <BlockButton format="heading-three" icon="heading-three" />
@@ -60,11 +65,11 @@ const RichEditor = (props) => {
                 spellCheck
                 onKeyDown={event => {
                   for (const hotkey in HOTKEYS) {
-                      if (isHotkey(hotkey, event)) {
-                          event.preventDefault()
-                          const mark = HOTKEYS[hotkey]
-                          toggleMark(editor, mark)
-                      }
+                    if (isHotkey(hotkey, event)) {
+                      event.preventDefault()
+                      const mark = HOTKEYS[hotkey]
+                      toggleMark(editor, mark)
+                    }
                   }
                 }}
             />

@@ -21,7 +21,7 @@ export const Toolbar = React.forwardRef(
         left: 116px;
         z-index: 8;
         overflow: hidden;
-        justifty-content: center;
+        justify-content: center;
         `
       )}
     />

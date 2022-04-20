@@ -21,10 +21,12 @@ import axios from 'axios';
 import SavedBanner from '../SavedBanner';
 import ShareModal from '../ShareModal';
 import GenerateModal from '../GenerateModal';
+import JoyRide from './JoyRide';
 
 const ITEMS = [
     {
         id: uuid(),
+        disableDrag: false,
         content: 'Text',
         fieldProps: {
           url: null,
@@ -33,13 +35,14 @@ const ITEMS = [
           height: null,
           label: null,
           editor: [{
-            type: "parahraph",
+            type: "paragraph",
             children: [{ text: 'A line of text in a paragraph.' }],
           }]
         }
     },
     {
         id: uuid(),
+        disableDrag: false,
         content: 'Image',
         fieldProps: {
           url: '../assets/default-banner.png',
@@ -52,6 +55,7 @@ const ITEMS = [
     },
     {
         id: uuid(),
+        disableDrag: false,
         content: 'Button',
         fieldProps: {
           url: 'https://cox.sumtotal.host',
@@ -66,7 +70,74 @@ const ITEMS = [
 
 class CreateEmail extends Component {
   defaultState = {
-    [uuid()]: []
+    [uuid()]: window.localStorage.getItem('tutorialFlag') === null ? [
+        {
+            "content": "Image",
+            "id": "68f8b887-8a0e-43a4-b0bb-6e3f1f04eab4",
+            "fieldProps": {
+                "url": "https://media.coxenterprises.com/media/cai/notification_templates/general/assignment/LAC_Lightbulb_Hero.png",
+                "align": "center",
+                "width": null,
+                "height": null,
+                "label": null,
+                "editor": []
+            }
+        },
+        {
+            "content": "Text",
+            "id": "b8b9e30f-17bc-4983-8805-d1d8538c26b6",
+            "fieldProps": {
+                "url": null,
+                "align": null,
+                "width": null,
+                "height": null,
+                "label": null,
+                "editor": [
+                    {
+                        "type": "heading-four",
+                        "children": [
+                            {
+                                "text": "Create Custom Emails",
+                                "bold": true
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "children": [
+                            {
+                                "text": "Generate your own custom email templates"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "content": "Button",
+            "id": "18da80c1-de1b-4219-b98f-bbadf9b220dd",
+            "fieldProps": {
+                "url": "https://cox.sumtotal.host",
+                "align": "flex-start",
+                "width": null,
+                "height": null,
+                "label": "Click Me!",
+                "editor": []
+            }
+        },
+        {
+            "content": "Image",
+            "id": "33fad3c7-fc97-4978-ab38-2dbb972c5b81",
+            "fieldProps": {
+                "url": "https://media.coxenterprises.com/media/cai/notification_templates/general/footer/LAC_Footer.png",
+                "align": "center",
+                "width": null,
+                "height": null,
+                "label": null,
+                "editor": []
+            }
+        }
+    ] : {}
   }
 
   constructor(props) {
@@ -80,6 +151,7 @@ class CreateEmail extends Component {
     } else {
       axios
         .get(`https://learnatcox-notif-generator.herokuapp.com/api/${this.props.match.params.id}`)
+        // .get(`https://localhost:8082/api/${this.props.match.params.id}`)
         .then(result => {
           this.setState({
             [this.props.match.params.id]: JSON.parse(result.data.content)
@@ -178,6 +250,7 @@ class CreateEmail extends Component {
   render() {
     return (
       <div>
+        <JoyRide/>
         <ShareModal/>
         <GenerateModal data={JSON.stringify(this.state)}/>
         <SavedBanner/>
@@ -190,6 +263,7 @@ class CreateEmail extends Component {
                         isDraggingOver={snapshot.isDraggingOver}>
                         {ITEMS.map((item, index) => (
                             <Draggable
+                                isDragDisabled={item.disableDrag}
                                 key={item.id}
                                 draggableId={item.id}
                                 index={index}>

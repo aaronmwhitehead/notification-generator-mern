@@ -19,7 +19,8 @@ class UpdateEmailInfo extends Component {
   componentDidMount() {
     // console.log("Print id: " + this.props.match.params.id);
     axios
-      .get('https://learnatcox-notif-generator.herokuapp.com/api/emails/'+this.props.match.params.id)
+      // .get('https://learnatcox-notif-generator.herokuapp.com/api/emails/'+this.props.match.params.id)
+      .get('https://localhost:3000/'+this.props.match.params.id)
       .then(res => {
         // this.setState({...this.state, email: res.data})
         this.setState({
@@ -53,7 +54,8 @@ class UpdateEmailInfo extends Component {
     };
 
     axios
-      .put('https://learnatcox-notif-generator.herokuapp.com/api/emails/'+this.props.match.params.id, data)
+      // .put('https://learnatcox-notif-generator.herokuapp.com/api/emails/'+this.props.match.params.id, data)
+      .put('https://localhost:3000/api/emails/'+this.props.match.params.id, data)
       .then(res => {
         this.props.history.push('/show-email/'+this.props.match.params.id);
       })
