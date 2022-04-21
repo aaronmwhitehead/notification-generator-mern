@@ -157,8 +157,8 @@ class CreateEmail extends Component {
       this.setState(this.defaultState, this.updateCharacterCount('0'))
     } else {
       axios
-        .get(`https://learnatcox-notification-generator.onrender.com/api/${this.props.match.params.id}`)
-        // .get(`https://localhost:8082/api/${this.props.match.params.id}`)
+        .get(`https://learnatcox-notif-generator.herokuapp.com/api/${this.props.match.params.id}`)
+        // .get(`http://localhost:8082/api/${this.props.match.params.id}`)
         .then(result => {
           this.setState({
             [this.props.match.params.id]: JSON.parse(result.data.content)
@@ -263,7 +263,7 @@ class CreateEmail extends Component {
         <GenerateModal data={JSON.stringify(this.state)}/>
         <SavedBanner/>
         <CharacterCount/>
-        <Header onDeleteTemplate={() => {this.setState({[Object.keys(this.state)[0]]: {}})}} showUpdate={this.props.defaultTemplate} onSaveNew={(data) => {this.onSaveNew(data)}} state={this.state}/>
+        <Header onDeleteTemplate={() => {this.setState({[Object.keys(this.state)[0]]: {}}, () => {this.updateCharacterCount('0')})}} showUpdate={this.props.defaultTemplate} onSaveNew={(data) => {this.onSaveNew(data)}} state={this.state}/>
         <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
             <Droppable droppableId="ITEMS" isDropDisabled={true}>
                 {(provided, snapshot) => (

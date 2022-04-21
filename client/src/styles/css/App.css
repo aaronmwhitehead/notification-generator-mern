@@ -770,8 +770,8 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   flex-direction: column;
   position: absolute;
   z-index: 99;
-  left: 120px;
-  top: 80px;
+  bottom: 20px;
+  right: 20px;
   background: #fff;
   border-radius: 5px;
   padding: 10px;

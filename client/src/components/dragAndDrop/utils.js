@@ -57,14 +57,15 @@ export const updateTemplate = ((data, newTemp) => {
     id: newTemp === true ? uuid() : Object.keys(data)[0],
     content: Object.values(data)[0],
   }
+  console.log(result)
   axios
-    .post(`https://learnatcox-notification-generator.onrender.com/api/${result.id}`, result)
-    // .post(`https://localhost:8082/api/${result.id}`, result)
+    .post(`https://learnatcox-notif-generator.herokuapp.com/api/${result.id}`, result)
+    // .post(`http://localhost:8082/api/${result.id}`, result)
     .then((res) => {
       document.querySelector('.banner-save').style.display = 'flex';
       setTimeout(() => {
-        window.location.href = `https://learnatcox-notification-generator.onrender.com/${result.id}`;
-        // window.location.href = `https://localhost:8082/${result.id}`;
+        window.location.href = `https://learnatcox-notif-generator.herokuapp.com/${result.id}`;
+        // window.location.href = `http://localhost:3000/${result.id}`;
       }, 2000)
     })
     .catch(err => {
