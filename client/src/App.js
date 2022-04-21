@@ -4,6 +4,7 @@ import './styles/css/App.css';
 import CreateEmail from './components/dragAndDrop/CreateEmail';
 
 class App extends Component {
+
   render() {
     return (
       <div className="app">

@@ -49,6 +49,14 @@ class JoyRide extends Component{
         disableOverlay: true,
       },
       {
+        target: '.character-count-container',
+        content: <Tooltip title='Live Character Count' body={'See the live character count of the generated HTML. Keep this value under 4000 to use this template in Learn@Cox.'}/>,
+        placement: 'bottom',
+        spotlightClicks: true,
+        disableOverlayClose: true,
+        disableOverlay: true,
+      },
+      {
         target: '.button-save',
         content: <Tooltip title='Save and Share!' body={'Save a new template, or update the existing template. This will generate a shareable link!'}/>,
         placement: 'left',

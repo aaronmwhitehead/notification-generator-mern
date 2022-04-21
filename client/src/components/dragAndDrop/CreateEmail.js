@@ -4,7 +4,7 @@ import Element from "../element/Element";
 import Field from '../fields/Field';
 import uuid from 'uuid/v4';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { reorder, copy, move, saveState, updateTemplate } from './utils';
+import { reorder, copy, move, saveState, updateTemplate, generateHTML } from './utils';
 import Content from './Content';
 import Item from './Item';
 import ListItem from './ListItem';
@@ -22,6 +22,7 @@ import SavedBanner from '../SavedBanner';
 import ShareModal from '../ShareModal';
 import GenerateModal from '../GenerateModal';
 import JoyRide from './JoyRide';
+import CharacterCount from './CharacterCount';
 
 const ITEMS = [
     {
@@ -143,18 +144,26 @@ class CreateEmail extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.characterCount = this.props.characterCount;
   }
+
+  updateCharacterCount = ((value) => {
+    var charactetCountContainer = document.querySelector('.character-count');
+    charactetCountContainer.innerHTML = value || generateHTML(this.state);
+  })
 
   componentDidMount() {
     if(this.props.defaultTemplate) {
-      this.setState(this.defaultState)
+      this.setState(this.defaultState, this.updateCharacterCount('0'))
     } else {
       axios
-        .get(`https://learnatcox-notif-generator.herokuapp.com/api/${this.props.match.params.id}`)
+        .get(`https://learnatcox-notification-generator.onrender.com/api/${this.props.match.params.id}`)
         // .get(`https://localhost:8082/api/${this.props.match.params.id}`)
         .then(result => {
           this.setState({
             [this.props.match.params.id]: JSON.parse(result.data.content)
+          }, () => {
+            this.updateCharacterCount()
           })
         })
         .catch(err => {
@@ -167,7 +176,7 @@ class CreateEmail extends Component {
     window.saved = false;
     this.setState({
       [Object.keys(this.state)[0]]: saveState(this.state, value)
-    });
+    }, () => {this.updateCharacterCount()});
   });
 
   onSaveNew = ((data) => {
@@ -176,14 +185,13 @@ class CreateEmail extends Component {
   })
 
   onDeleteSection = ((result) => {
-    window.saved = false;
     const objId = result.target.closest('.delete-block').getAttribute("data-uuid");
     let currentState = Object.values(this.state)[0];
     const indexOfObject = currentState.findIndex(object => {
       return object.id === objId;
     });
     currentState.splice(indexOfObject, 1);
-    this.setState(this.state);
+    this.setState(this.state, () => {this.updateCharacterCount()});
   });
 
   onDragStart = (() => {
@@ -254,6 +262,7 @@ class CreateEmail extends Component {
         <ShareModal/>
         <GenerateModal data={JSON.stringify(this.state)}/>
         <SavedBanner/>
+        <CharacterCount/>
         <Header onDeleteTemplate={() => {this.setState({[Object.keys(this.state)[0]]: {}})}} showUpdate={this.props.defaultTemplate} onSaveNew={(data) => {this.onSaveNew(data)}} state={this.state}/>
         <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
             <Droppable droppableId="ITEMS" isDropDisabled={true}>

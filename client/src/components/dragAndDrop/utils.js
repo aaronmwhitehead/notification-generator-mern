@@ -58,12 +58,12 @@ export const updateTemplate = ((data, newTemp) => {
     content: Object.values(data)[0],
   }
   axios
-    .post(`https://learnatcox-notif-generator.herokuapp.com/api/${result.id}`, result)
+    .post(`https://learnatcox-notification-generator.onrender.com/api/${result.id}`, result)
     // .post(`https://localhost:8082/api/${result.id}`, result)
     .then((res) => {
       document.querySelector('.banner-save').style.display = 'flex';
       setTimeout(() => {
-        window.location.href = `https://learnatcox-notif-generator.herokuapp.com/${result.id}`;
+        window.location.href = `https://learnatcox-notification-generator.onrender.com/${result.id}`;
         // window.location.href = `https://localhost:8082/${result.id}`;
       }, 2000)
     })
@@ -163,5 +163,6 @@ export const generateHTML = ((result) => {
   outputContainer.value = outputContainer.value.replace(/[\u2019]/g, "'");
   outputContainer.value = outputContainer.value.replace(/[^\x00-\x7F]/g, " ");
   outputContainer.value = outputContainer.value.replace("  ", " ");
+  return outputContainer.value.length
   // document.querySelector('.html-textarea').value = finalOutput;
 });

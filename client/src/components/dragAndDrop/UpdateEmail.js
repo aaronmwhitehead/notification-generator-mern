@@ -69,7 +69,7 @@ class UpdateEmail extends Component {
 
   componentDidMount() {
     axios
-      .get(`https://learnatcox-notif-generator.herokuapp.com/api/${this.props.match.params.id}`)
+      .get(`https://learnatcox-notification-generator.onrender.com/api/${this.props.match.params.id}`)
       // .get(`https://localhost:8082/api/${this.props.match.params.id}`)
       .then(result => {
         this.setState({
