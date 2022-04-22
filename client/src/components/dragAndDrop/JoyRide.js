@@ -9,18 +9,10 @@ class JoyRide extends Component{
     run: window.localStorage.getItem('tutorialFlag') === null ? true : false,
       steps: [
       {
-        target: 'body',
-        content: 'Welcome!',
-        disableBeacon: true,
-        placement: 'center',
-        styles: {options: {
-          width: 500,
-        }}
-      },
-      {
         target: '.sc-bZQynM',
         content: <Tooltip title='Drag and Drop Elements!' body={'Drag template elements from here into editor.'}/>,
         placement: 'right-start',
+        disableBeacon:true,
         spotlightClicks: true,
         disableOverlay: true,
       },
