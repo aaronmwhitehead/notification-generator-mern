@@ -130,7 +130,7 @@ export const isMarkActive = (editor, format) => {
   const marks = Editor.marks(editor)
   var fontSizeInput = document.querySelector('.input-font-size');
   if(marks) {
-    fontSizeInput.value = marks.fontSize ? marks.fontSize :'16px'
+    fontSizeInput.value = marks.fontSize ? marks.fontSize :'14px'
   }
   return marks ? marks[format] === true : false
 }

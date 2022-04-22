@@ -10,7 +10,7 @@ const FontSizeButton = (props) => {
 
   const [value, setValue] = useState(
     {
-      size: '16px'
+      size: '14px'
     }
   )
   

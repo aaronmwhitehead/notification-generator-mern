@@ -95,9 +95,10 @@ const generateMarkup = ((list) => {
       }
     }
     if(child.type === 'link') {
-      outputString = `<a href="${child.href}">${generateMarkup(child.children)}</a>`
+      outputString += `<a href="${child.href}">${generateMarkup(child.children)}</a>`
     }
     if(child.type === 'list-item') {
+      console.log(child)
       outputString += `<li>${generateMarkup(child.children)}</li>`
     }
   })
@@ -121,7 +122,6 @@ export const generateHTML = ((result) => {
           break;
         case 'Text':
           el.fieldProps.editor.forEach((element) => {
-            console.log(element)
             switch(element.type) {
               case 'heading-one':
                 outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h1 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h1></td></tr>`;
