@@ -75,24 +75,28 @@ export const updateTemplate = ((data, newTemp) => {
 
 const generateMarkup = ((list) => {
   var outputString = ``;
+  console.log('list: ', list)
 
   list.forEach((child) => {
     if(child.text) {
+      var childString = ``;
+
       if(child.fontSize) {
         outputString += `<span style="font-size:${child.fontSize}">${child.text}</span>`; 
       } else {
-        outputString += child.text;
+        childString += child.text;
       }
       
       if(child.bold) {
-        outputString = `<strong>${outputString}</strong>`
+        childString = `<strong>${childString}</strong>`
       }
       if(child.underline) {
-        outputString = `<u>${outputString}</u>`
+        childString = `<u>${childString}</u>`
       }
       if(child.italic) {
-        outputString = `<em>${outputString}</em>`
+        childString = `<em>${childString}</em>`
       }
+      outputString += childString;
     }
     if(child.type === 'link') {
       outputString += `<a href="${child.href}">${generateMarkup(child.children)}</a>`
