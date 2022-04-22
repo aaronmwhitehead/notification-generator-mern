@@ -99,7 +99,7 @@ const generateMarkup = ((list) => {
     }
     if(child.type === 'list-item') {
       console.log(child)
-      outputString += `<li>${generateMarkup(child.children)}</li>`
+      outputString += `<li style="margin-bottom:8px">${generateMarkup(child.children)}</li>`
     }
   })
   return outputString;
