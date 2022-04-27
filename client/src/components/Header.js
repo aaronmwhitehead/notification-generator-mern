@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../styles/css/App.css";
 import { generateHTML, updateTemplate } from './dragAndDrop/utils';
+import { BiPencil } from 'react-icons/bi'
+import { useEffect } from 'react';
+
 
 const Header = (props) => {
+  const [value, setValue] = useState(
+    {
+      title: "Notification Template"
+    }
+  )
+
   const handleSaveNew = (state) => {
     props.onSaveNew(state);
   }
@@ -34,9 +43,23 @@ const Header = (props) => {
     }
   }
 
+  // const editTitle = () => {
+  //   document.querySelector('.template-title').focus()
+  // }
+
+  const handleChange = (e) => {
+    setValue({
+      title: e.target.value
+    })
+  }
+
   return (
     <div className="page-header" >
       <span className="header-title">Learn@Cox Notification Template Generator</span>
+      {/* <div className="edit-title">
+        <BiPencil cursor="pointer" onClick={editTitle} size={14}/>
+        <input onChange={(e) => handleChange(e)} className="template-title" defaultValue={value.title}></input>
+      </div> */}
       <div className='button-block'>
         <div onClick={confirmDelete} className='button button-delete'>Clear Template</div>
         <div className="save-dropdown" onClick={(e) => openDropdown(e)}>

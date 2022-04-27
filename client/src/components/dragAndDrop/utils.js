@@ -56,17 +56,19 @@ export const updateTemplate = ((data, newTemp) => {
   var result = {
     id: newTemp === true ? uuid() : Object.keys(data)[0],
     content: Object.values(data)[0],
+    // title: document.querySelector('.template-title').value,
   }
   console.log(result)
   axios
     .post(`https://learnatcox-notif-generator.herokuapp.com/api/${result.id}`, result)
     // .post(`http://localhost:8082/api/${result.id}`, result)
     .then((res) => {
+      console.log('res: ', res)
       document.querySelector('.banner-save').style.display = 'flex';
       setTimeout(() => {
         window.location.href = `https://learnatcox-notif-generator.herokuapp.com/${result.id}`;
         // window.location.href = `http://localhost:3000/${result.id}`;
-      }, 2000)
+      }, 10000)
     })
     .catch(err => {
       console.log("Error in post: ", err);
@@ -75,7 +77,6 @@ export const updateTemplate = ((data, newTemp) => {
 
 const generateMarkup = ((list) => {
   var outputString = ``;
-  console.log('list: ', list)
 
   list.forEach((child) => {
     if(child.text) {

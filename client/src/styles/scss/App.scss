@@ -490,6 +490,7 @@ input[type=range] {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 
   .header-title {
     color: #fff;
@@ -497,6 +498,32 @@ input[type=range] {
     padding: 10px;
     font-family: 'Nunito Sans','Avenir Next','Segoe UI','Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
     margin-left: 10px;
+  }
+
+  .edit-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    width: 30%;
+
+    .template-title {
+      padding: 5px;
+      font-size: 16px;
+      box-shadow: none;
+      background: none;
+      border: none;
+      color: #fff;
+      width: 100%;
+      margin-left: 10px;
+  
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 1px 1px #80ED99;
+        border-color: #67c97e;
+        border-radius: 3px;
+      }
+    }
   }
 }
 

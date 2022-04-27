@@ -68,17 +68,19 @@ class JoyRide extends Component{
       this.setState({ stepIndex: index + (action === ACTIONS.PREV ? -1 : 1) });
     }
     if ([EVENTS.STEP_BEFORE, EVENTS.TARGET_NOT_FOUND].includes(type)) {
-      if(index === 3) {
-        document.querySelector('.drag-handle').style.visibility = 'visible';
-        document.querySelector('.delete-block').style.visibility = 'visible';
-      }
-      else {
-        document.querySelectorAll('.drag-handle').forEach((el) => {
-          el.style.visibility = null;
-        });
-        document.querySelectorAll('.delete-block').forEach((el) => {
-          el.style.visibility = null;
-        })
+      if(document.querySelector('.drag-handle')) {
+        if(index === 2) {
+          document.querySelector('.drag-handle').style.visibility = 'visible';
+          document.querySelector('.delete-block').style.visibility = 'visible';
+        }
+        else {
+          document.querySelectorAll('.drag-handle').forEach((el) => {
+            el.style.visibility = null;
+          });
+          document.querySelectorAll('.delete-block').forEach((el) => {
+            el.style.visibility = null;
+          })
+        }
       }
     }
     else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
