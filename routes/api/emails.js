@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const path = require("path");
 
 // // Load Email model
 const Email = require('../../models/Schema');
@@ -20,7 +19,7 @@ router.get('/:id', (req, res) => {
 // @description add/save email
 // @access Public
 router.post('/:id', (req, res) => {
-  Email.findByIdAndUpdate(req.body.id, {content: JSON.stringify(req.body.content), updated_date: Date.now()}, { new: true, upsert: true })
+  Email.findByIdAndUpdate(req.body.id, {content: JSON.stringify(req.body.content), title: req.body.title, updated_date: Date.now()}, { new: true, upsert: true })
     .then((template) => {
       res.json(template)
     })

@@ -50,10 +50,12 @@ class Image extends Component{
     this.props.onSizeChange(target);
   }
   setDefaultDimensions() {
-    this.setState({
-      width: this.imgRef.current.naturalWidth >= 620 ? 620 : this.imgRef.current.naturalWidth,
-      height: this.imgRef.current.naturalWidth >= 620 ? Math.ceil(620 * this.imgRef.current.naturalHeight/this.imgRef.current.naturalWidth) : this.imgRef.current.naturalHeight
-    }, (() => {this.props.onNewImage(this.state.width)}))
+    if(this.state.width == null) {
+      this.setState({
+        width: this.imgRef.current.naturalWidth >= 620 ? 620 : this.imgRef.current.naturalWidth,
+        height: this.imgRef.current.naturalWidth >= 620 ? Math.ceil(620 * this.imgRef.current.naturalHeight/this.imgRef.current.naturalWidth) : this.imgRef.current.naturalHeight
+      }, (() => {this.props.onNewImage(this.state.width)}))
+    }
   };
 
   render() {
