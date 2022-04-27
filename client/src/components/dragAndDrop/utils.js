@@ -68,7 +68,7 @@ export const updateTemplate = ((data, newTemp) => {
       setTimeout(() => {
         window.location.href = `https://learnatcox-notif-generator.herokuapp.com/${result.id}`;
         // window.location.href = `http://localhost:3000/${result.id}`;
-      }, 10000)
+      }, 2000)
     })
     .catch(err => {
       console.log("Error in post: ", err);
