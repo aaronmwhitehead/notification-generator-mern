@@ -168,7 +168,8 @@ export const generateHTML = ((result) => {
 
   outputContainer.value += `</table></td></tr></table></div></center></body></html>`;
   outputContainer.value = outputContainer.value.replace(/[\u2019]/g, "'");
-  outputContainer.value = outputContainer.value.replace(/[^\x00-\x7F]/g, " ");
+  // outputContainer.value = outputContainer.value.replace(/[^\x00-\x7F]/g, " ");
+  outputContainer.value = outputContainer.value.replace(/[\u202F]/g, "")
   outputContainer.value = outputContainer.value.replace("  ", " ");
   return outputContainer.value.length
   // document.querySelector('.html-textarea').value = finalOutput;
