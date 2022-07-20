@@ -56,7 +56,7 @@ export const updateTemplate = ((data, newTemp) => {
   var result = {
     id: newTemp === true ? uuid() : Object.keys(data)[0],
     content: Object.values(data)[0],
-    // title: document.querySelector('.template-title').value,
+    title: document.querySelector('.template-title').value,
   }
   console.log(result)
   axios

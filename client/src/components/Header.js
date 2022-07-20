@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 const Header = (props) => {
   const [value, setValue] = useState(
     {
-      title: "Notification Template"
+      title: "New Notification Template (Click to Edit)"
     }
   )
 
@@ -56,10 +56,10 @@ const Header = (props) => {
   return (
     <div className="page-header" >
       <span className="header-title">Learn@Cox Notification Template Generator</span>
-      {/* <div className="edit-title">
-        <BiPencil cursor="pointer" onClick={editTitle} size={14}/>
+      <div className="edit-title">
+        {/* <BiPencil cursor="pointer" onClick={editTitle} size={14}/> */}
         <input onChange={(e) => handleChange(e)} className="template-title" defaultValue={value.title}></input>
-      </div> */}
+      </div>
       <div className='button-block'>
         <div onClick={confirmDelete} className='button button-delete'>Clear Template</div>
         <div className="save-dropdown" onClick={(e) => openDropdown(e)}>

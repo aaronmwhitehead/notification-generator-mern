@@ -160,8 +160,9 @@ class CreateEmail extends Component {
         .get(`https://learnatcox-notif-generator.herokuapp.com/api/${this.props.match.params.id}`)
         // .get(`http://localhost:8082/api/${this.props.match.params.id}`)
         .then(result => {
+          document.querySelector('.template-title').value = result.data.title || 'New Notification Template (Click to Edit)';
           this.setState({
-            [this.props.match.params.id]: JSON.parse(result.data.content)
+            [this.props.match.params.id]: JSON.parse(result.data.content),
           }, () => {
             this.updateCharacterCount()
           })

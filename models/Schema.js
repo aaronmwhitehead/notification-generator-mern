@@ -23,6 +23,9 @@ const EmailSchema = new mongoose.Schema({
   content: { 
     type: String
   },
+  title: {
+    type: String
+  },
   updated_date: {
     type: Date,
     default: Date.now
