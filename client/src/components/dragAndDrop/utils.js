@@ -127,33 +127,35 @@ export const generateHTML = ((result) => {
           break;
         case 'Text':
           el.fieldProps.editor.forEach((element) => {
+            var textAlign = element.align ? `text-align: ${element.align};` : '';
+            
             switch(element.type) {
               case 'heading-one':
-                outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h1 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h1></td></tr>`;
+                outputContainer.value += `<tr><td style="padding:10px;color:#575757;${textAlign}"><h1 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h1></td></tr>`;
                 break;
               case 'heading-two':
-                outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h2 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h2></td></tr>`;
+                outputContainer.value += `<tr><td style="padding:10px;color:#575757;${textAlign}"><h2 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h2></td></tr>`;
                 break;
               case 'heading-three':
-                outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h3 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h3></td></tr>`;
+                outputContainer.value += `<tr><td style="padding:10px;color:#575757;${textAlign}"><h3 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h3></td></tr>`;
                 break;
               case 'heading-four':
-                outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h4 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h4></td></tr>`;
+                outputContainer.value += `<tr><td style="padding:10px;color:#575757;${textAlign}"><h4 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h4></td></tr>`;
                 break;
               case 'heading-five':
-                outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h5 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h5></td></tr>`;
+                outputContainer.value += `<tr><td style="padding:10px;color:#575757;${textAlign}"><h5 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h5></td></tr>`;
                 break;
               case 'heading-six':
-                outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><h6 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h6></td></tr>`;
+                outputContainer.value += `<tr><td style="padding:10px;color:#575757;${textAlign}"><h6 style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</h6></td></tr>`;
                 break;
               case 'bulleted-list':
-                outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><ul style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</ul></td></tr>`;
+                outputContainer.value += `<tr><td style="padding:10px;color:#575757;${textAlign}"><ul style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</ul></td></tr>`;
                 break;
               case 'numbered-list':
-                outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><ol style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</ol></td></tr>`;
+                outputContainer.value += `<tr><td style="padding:10px;color:#575757;${textAlign}"><ol style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</ol></td></tr>`;
                 break;
               case 'paragraph':
-                outputContainer.value += `<tr><td style="padding:10px;color:#575757;text-align:${element.align}"><p style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</p></td></tr>`;
+                outputContainer.value += `<tr><td style="padding:10px;color:#575757;${textAlign}"><p style="font-family:arial,sans-serif;margin:0">${generateMarkup(element.children)}</p></td></tr>`;
                 break;
               default:
                 break;
@@ -171,6 +173,7 @@ export const generateHTML = ((result) => {
   // outputContainer.value = outputContainer.value.replace(/[^\x00-\x7F]/g, " ");
   outputContainer.value = outputContainer.value.replace(/[\u202F]/g, "")
   outputContainer.value = outputContainer.value.replace("  ", " ");
+  outputContainer.value = outputContainer.value.replace("text-align:undefined", "");
   return outputContainer.value.length
   // document.querySelector('.html-textarea').value = finalOutput;
 });
