@@ -1,16 +1,10 @@
-# MERN_A_to_Z
+# Drag-and-Drop HTML Email Generator
 
-### To Run the app (server)
+Create customized HTML email templates effortlessly using this drag-and-drop email generator. Users can add email elements (buttons, text, and images) to the body and edit their content. It optimizes character usage for generating emails, meaning it can be used for situations where character limits cause issues (e.g. SumTotal LMS).
 
-##### Make sure you are in - MERN_A_to_Z/ directory & type the following command
+## Try It Out
+http://learnatcox-notif-generator.herokuapp.com
 
-```sh
-$ npm install
-$ npm run app
-```
-
-[Read My Article on LogRocket Blog about this repository](https://blog.logrocket.com/mern-stack-a-to-z-part-1/)
-
-### You will find the front end part (MERN stack A to Z - Part-2) here.
-
-[FrontEnd - (Client)](https://github.com/nurislam03/MERN_A_to_Z_Client)
+## Compatibility
+- Optimized for **MS Outlook**
+- Works seamlessly with **SumTotal LMS**
